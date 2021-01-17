@@ -2319,7 +2319,7 @@ var register = function register(name, email, password) {
                 }
               };
               _context2.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/users', {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/users/register', {
                 name: name,
                 email: email,
                 password: password
