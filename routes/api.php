@@ -15,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::post('/logout', 'Auth\ApiAuthController@logout')->name('logout.api');
+});
+
+Route::group(['middleware' => ['cors', 'json.response']], function () {
+    // public routes
+    Route::post('/login', 'Auth\ApiAuthController@login')->name('login.api');
+    Route::post('/register','Auth\ApiAuthController@register')->name('register.api');
 });
