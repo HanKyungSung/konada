@@ -2545,6 +2545,27 @@ var PRODUCT_DETAILS_FAIL = 'PRODUCT_DETAILS_FAIL';
 
 /***/ }),
 
+/***/ "./resources/js/constants/userConstants.js":
+/*!*************************************************!*\
+  !*** ./resources/js/constants/userConstants.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "USER_LOGIN_REQUEST": () => /* binding */ USER_LOGIN_REQUEST,
+/* harmony export */   "USER_LOGIN_SUCCESS": () => /* binding */ USER_LOGIN_SUCCESS,
+/* harmony export */   "USER_LOGIN_FAIL": () => /* binding */ USER_LOGIN_FAIL,
+/* harmony export */   "USER_LOGOUT": () => /* binding */ USER_LOGOUT
+/* harmony export */ });
+var USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
+var USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+var USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
+var USER_LOGOUT = 'USER_LOGOUT';
+
+/***/ }),
+
 /***/ "./resources/js/index.js":
 /*!*******************************!*\
   !*** ./resources/js/index.js ***!
@@ -2683,6 +2704,81 @@ var productListReducer = function productListReducer() {
         loading: false,
         error: action.payload
       };
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/reducers/userReducers.js":
+/*!***********************************************!*\
+  !*** ./resources/js/reducers/userReducers.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "userLoginReducer": () => /* binding */ userLoginReducer,
+/* harmony export */   "userRegisterReducer": () => /* binding */ userRegisterReducer
+/* harmony export */ });
+/* harmony import */ var _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/userConstants */ "./resources/js/constants/userConstants.js");
+
+var userLoginReducer = function userLoginReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__.USER_LOGIN_REQUEST:
+      return {
+        loading: true
+      };
+
+    case _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__.USER_LOGIN_SUCCESS:
+      return {
+        loading: false,
+        userInfo: action.payload
+      };
+
+    case _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__.USER_LOGIN_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      };
+
+    case _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__.USER_LOGOUT:
+      return {};
+
+    default:
+      return state;
+  }
+};
+var userRegisterReducer = function userRegisterReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__.USER_REGISTER_REQUEST:
+      return {
+        loading: true
+      };
+
+    case _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__.USER_REGISTER_SUCCESS:
+      return {
+        loading: false,
+        userInfo: action.payload
+      };
+
+    case _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__.USER_REGISTER_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      };
+
+    case _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__.USER_LOGOUT:
+      return {};
 
     default:
       return state;
@@ -2866,20 +2962,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
 /* harmony import */ var _reducers_productReducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reducers/productReducers */ "./resources/js/reducers/productReducers.js");
+/* harmony import */ var _reducers_userReducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reducers/userReducers */ "./resources/js/reducers/userReducers.js");
 
 
 
 
-var reducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
-  productList: _reducers_productReducers__WEBPACK_IMPORTED_MODULE_2__.productListReducer
+
+var reducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
+  productList: _reducers_productReducers__WEBPACK_IMPORTED_MODULE_2__.productListReducer,
+  userLogin: _reducers_userReducers__WEBPACK_IMPORTED_MODULE_3__.userLoginReducer,
+  userRegister: _reducers_userReducers__WEBPACK_IMPORTED_MODULE_3__.userRegisterReducer
 });
 var initialState = {};
 var middleware = [redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default];
-var store = (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(reducer, initialState, (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__.composeWithDevTools)(redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware.apply(void 0, middleware)));
+var store = (0,redux__WEBPACK_IMPORTED_MODULE_4__.createStore)(reducer, initialState, (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__.composeWithDevTools)(redux__WEBPACK_IMPORTED_MODULE_4__.applyMiddleware.apply(void 0, middleware)));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
 
 /***/ }),
