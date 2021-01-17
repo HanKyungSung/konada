@@ -42,7 +42,7 @@ const ProductScreen = ({ match }) => {
                   <Col>{product.isAvailable ? 'In Stock' : 'Out Of Stock'}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
+              {/* <ListGroup.Item>
                 <Button
                   className="btn-block"
                   type="button"
@@ -50,7 +50,7 @@ const ProductScreen = ({ match }) => {
                 >
                   Add To Cart
                 </Button>
-              </ListGroup.Item>
+              </ListGroup.Item> */}
             </ListGroup>
           </Card>
         </Col>
