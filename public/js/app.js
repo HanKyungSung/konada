@@ -5210,7 +5210,7 @@ var logout = function logout() {
     document.location.href = '/login';
   };
 };
-var register = function register(name, email, password) {
+var register = function register(name, email, password, password_confirmation) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
       var config, _yield$axios$post2, data;
@@ -5232,7 +5232,8 @@ var register = function register(name, email, password) {
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/register', {
                 name: name,
                 email: email,
-                password: password
+                password: password,
+                password_confirmation: password_confirmation
               }, config);
 
             case 5:
@@ -5690,12 +5691,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "USER_LOGIN_REQUEST": () => /* binding */ USER_LOGIN_REQUEST,
 /* harmony export */   "USER_LOGIN_SUCCESS": () => /* binding */ USER_LOGIN_SUCCESS,
 /* harmony export */   "USER_LOGIN_FAIL": () => /* binding */ USER_LOGIN_FAIL,
-/* harmony export */   "USER_LOGOUT": () => /* binding */ USER_LOGOUT
+/* harmony export */   "USER_LOGOUT": () => /* binding */ USER_LOGOUT,
+/* harmony export */   "USER_REGISTER_FAIL": () => /* binding */ USER_REGISTER_FAIL,
+/* harmony export */   "USER_REGISTER_REQUEST": () => /* binding */ USER_REGISTER_REQUEST,
+/* harmony export */   "USER_REGISTER_SUCCESS": () => /* binding */ USER_REGISTER_SUCCESS
 /* harmony export */ });
 var USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 var USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 var USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
 var USER_LOGOUT = 'USER_LOGOUT';
+var USER_REGISTER_FAIL = 'USER_REGISTER_FAIL';
+var USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
+var USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
 
 /***/ }),
 
@@ -6277,8 +6284,8 @@ var RegisterScreen = function RegisterScreen(_ref) {
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      confirmPassword = _useState8[0],
-      setConfirmPassword = _useState8[1];
+      password_confirmation = _useState8[0],
+      setPassword_confirmation = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
@@ -6302,10 +6309,10 @@ var RegisterScreen = function RegisterScreen(_ref) {
   var submitHandler = function submitHandler(e) {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (password !== password_confirmation) {
       setMessage('Passwords do not match');
     } else {
-      dispatch((0,_actions_userActions__WEBPACK_IMPORTED_MODULE_6__.register)(name, email, password));
+      dispatch((0,_actions_userActions__WEBPACK_IMPORTED_MODULE_6__.register)(name, email, password, password_confirmation));
     }
   };
 
@@ -6357,15 +6364,15 @@ var RegisterScreen = function RegisterScreen(_ref) {
           }
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Group, {
-        controlId: "confirmPassword",
+        controlId: "password_confirmation",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Label, {
           children: "Confirm Password"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Control, {
           type: "password",
           placeholder: "Confirm password",
-          value: confirmPassword,
+          value: password_confirmation,
           onChange: function onChange(e) {
-            return setConfirmPassword(e.target.value);
+            return setPassword_confirmation(e.target.value);
           }
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {

@@ -11,7 +11,7 @@ const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password_confirmation, setPassword_confirmation] = useState('');
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -29,10 +29,10 @@ const RegisterScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+    if (password !== password_confirmation) {
       setMessage('Passwords do not match');
     } else {
-      dispatch(register(name, email, password));
+      dispatch(register(name, email, password, password_confirmation));
     }
   };
 
@@ -73,13 +73,13 @@ const RegisterScreen = ({ location, history }) => {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="confirmPassword">
+        <Form.Group controlId="password_confirmation">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={password_confirmation}
+            onChange={(e) => setPassword_confirmation(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
