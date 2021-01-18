@@ -22,3 +22,4 @@ Homestead.json
 /.vagrant
 .phpunit.result.cach
 .DS_Store
+public/js/app.js
