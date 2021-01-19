@@ -17,6 +17,7 @@ const App = () => {
           <Route path="/product/:id" component={ProductScreen} exact />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
+          <Route path="/profile/:userId" component={ProfileScreen} />
         </Container>
       </main>
       <Footer />
