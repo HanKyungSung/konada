@@ -11,7 +11,7 @@ import {
   PROFILE_LOAD_REQUEST,
   PROFILE_LOAD_SUCCESS,
   PROFILE_LOAD_FAIL,
-} from "../constants/profileConstants";
+} from '../constants/profileConstants';
 
 export const loadProfileReducer = (
   state = {
@@ -23,7 +23,9 @@ export const loadProfileReducer = (
 ) => {
   switch (action.type) {
     case PROFILE_LOAD_REQUEST:
-      return { loading: true };
+      return {
+        loading: true,
+      };
     case PROFILE_LOAD_SUCCESS:
       return {
         loading: false,
