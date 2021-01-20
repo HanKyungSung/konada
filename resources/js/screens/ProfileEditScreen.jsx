@@ -5,7 +5,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 import Message from '../components/utilities/Message';
 import Loader from '../components/utilities/Loader';
 
-import { loadProfile } from '../actions/profileActions';
+import { loadProfile, editProfile } from '../actions/profileActions';
 
 const ProfileEditScreen = () => {
   const [newProfile, setNewProfile] = useState({
@@ -27,6 +27,7 @@ const ProfileEditScreen = () => {
   const editProfileHandler = (e) => {
     e.preventDefault();
     dispatch(editProfile(newProfile));
+    // TODO: redirect
   };
 
   return (

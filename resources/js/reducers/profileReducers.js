@@ -34,5 +34,3 @@ export const loadProfileReducer = (
       return state;
   }
 };
-
-export const editProfileReducer = () => {};
