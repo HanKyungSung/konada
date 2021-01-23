@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Product from '../components/Product';
-import { Row } from 'react-bootstrap';
-import { listProducts } from './../actions/productActions';
-import Loader from './../components/utilities/Loader';
-import Message from './../components/utilities/Message';
+import Post from '../post/PostThumbnail';
+import { Row, Col } from 'react-bootstrap';
+import { listProducts } from '../../actions/productActions';
+import Loader from '../utilities/Loader';
+import Message from '../utilities/Message';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,9 @@ const HomeScreen = () => {
       ) : (
         <Row>
           {products.map((product) => (
-            <Product key={product._id} product={product} />
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Post key={product._id} product={product} />{' '}
+            </Col>
           ))}
         </Row>
       )}

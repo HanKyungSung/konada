@@ -37,7 +37,9 @@ class AuthController extends Controller
             return response(['message'=>'Invalid credentials']);
         }
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
+        $userInfo = auth()->user();
+        $userInfo -> token = $accessToken;
 
-        return response(['user'=>auth()->user(), 'access_token'=>$accessToken]);
+        return response($userInfo);
     }
 }
