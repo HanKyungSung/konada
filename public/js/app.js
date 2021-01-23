@@ -5175,7 +5175,7 @@ var login = function login(email, password) {
               data = _yield$axios$post.data;
               dispatch({
                 type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_2__.USER_LOGIN_SUCCESS,
-                payload: data
+                payload: data.user
               });
               localStorage.setItem('userInfo', JSON.stringify(data));
               _context.next = 14;
@@ -5451,7 +5451,7 @@ var Header = function Header() {
     return state.userLogin;
   });
   var userInfo = userLogin.userInfo;
-  console.log(userInfo);
+  console.log(userLogin);
 
   var logoutHandler = function logoutHandler() {
     dispatch((0,_actions_userActions__WEBPACK_IMPORTED_MODULE_4__.logout)());

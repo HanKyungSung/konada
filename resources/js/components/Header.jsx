@@ -10,7 +10,7 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  console.log(userInfo);
+  console.log(userLogin);
   const logoutHandler = () => {
     dispatch(logout());
   };
