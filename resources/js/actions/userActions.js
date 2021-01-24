@@ -8,6 +8,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../constants/userConstants';
+import { saveState, loadState } from '../localStorage';
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -27,12 +28,14 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
+    // saveState(data);
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: data.user,
+      payload: data,
     });
 
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    saveState('userInfo', data);
+    // localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -45,8 +48,20 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
+  localStorage.removeItem('userInfo');
+  // localStorage.removeItem('state');
+
   dispatch({ type: USER_LOGOUT });
   document.location.href = '/login';
+};
+
+export const isLoggedIn = () => (dispatch) => {
+  if (loadState('userInfo')) {
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: loadState('userInfo'),
+    });
+  }
 };
 
 export const register = (
@@ -82,7 +97,9 @@ export const register = (
       payload: data,
     });
 
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    saveState('userInfo', data);
+
+    // localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
