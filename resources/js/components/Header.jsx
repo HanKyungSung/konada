@@ -15,6 +15,8 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  console.log(userInfo);
+
   const logoutHandler = () => {
     dispatch(logout());
     localStorage.clear();
@@ -41,7 +43,7 @@ const Header = () => {
               </LinkContainer> */}
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
-                  <LinkContainer to={`/user/profile/${userInfo.id}/show`}>
+                  <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>
