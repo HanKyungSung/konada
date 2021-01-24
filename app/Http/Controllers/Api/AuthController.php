@@ -38,21 +38,10 @@ class AuthController extends Controller
         if(!auth()->attempt($loginData)){
             return response(['message'=>'Invalid credentials']);
         }
-
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
         $userInfo = auth()->user();
         $userInfo -> token = $accessToken;
 
         return response($userInfo);
-    }
-
-    public function edit(Request $request) {
-        $newProfile = $request->validate([
-            'name' => 'max:55',
-            'email' => 'email|unique:users',
-            'password' => 'confirmed',
-        ]);
-
-        $user = User::findOrFail();
     }
 }
