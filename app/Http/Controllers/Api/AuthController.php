@@ -22,8 +22,10 @@ class AuthController extends Controller
         $user = User::create($validatedData);
 
         $accessToken = $user->createToken('authToken')->accessToken;
+        $userInfo = $user;
+        $userInfo -> token = $accessToken; 
 
-        return response(['user'=>$user, 'access_token'=>$accessToken]);
+        return response($userInfo);
     }
 
     public function login(Request $request)
@@ -37,7 +39,9 @@ class AuthController extends Controller
             return response(['message'=>'Invalid credentials']);
         }
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
+        $userInfo = auth()->user();
+        $userInfo -> token = $accessToken;
 
-        return response(['user'=>auth()->user(), 'access_token'=>$accessToken]);
+        return response($userInfo);
     }
 }
