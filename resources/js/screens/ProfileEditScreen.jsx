@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Form, Button } from 'react-bootstrap';
 
@@ -19,6 +20,8 @@ const ProfileEditScreen = (match) => {
   const profileData = useSelector((state) => state.loadProfileReducer);
   const { loading, error, profile } = profileData;
 
+  let history = useHistory();
+
   useEffect(() => {
     dispatch(loadProfile(1));
     // TODO: need to get an user id for an active user.
@@ -27,7 +30,9 @@ const ProfileEditScreen = (match) => {
   const editProfileHandler = (e) => {
     e.preventDefault();
     dispatch(editProfile(newProfile));
-    // TODO: redirect
+    history.push(`/user/profile/${match.match.params.userId}/show`);
+    // why two matches?
+    // TODO: provide a feedback to the user.
   };
 
   return (
