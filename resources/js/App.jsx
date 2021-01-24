@@ -21,12 +21,12 @@ const App = () => {
           <Route path="/register" component={RegisterScreen} />
           <Route
             exact
-            path="/user/profile/show/:userId"
+            path="/user/profile/:userId/show"
             component={ProfileScreen}
           />
           <Route
             exact
-            path="/user/profile/edit"
+            path="/user/profile/:userId/edit"
             component={ProfileEditScreen}
           />
         </Container>

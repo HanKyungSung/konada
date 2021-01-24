@@ -33,7 +33,9 @@ const ProfileScreen = ({ match }) => {
             {/* I really don't like this way of reading data. */}
           </Row>
           <Row>
-            <Link to="/user/profile/edit">Edit profile</Link>
+            <Link to={`/user/profile/${match.params.userId}/edit`}>
+              Edit profile
+            </Link>
           </Row>
         </>
       )}

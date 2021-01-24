@@ -35,7 +35,8 @@ const Header = () => {
               </LinkContainer> */}
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
-                  <LinkContainer to="/profile">
+                  {console.log(userInfo.id)};
+                  <LinkContainer to={`/user/profile/${userInfo.id}/show`}>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>

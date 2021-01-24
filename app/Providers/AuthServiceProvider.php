@@ -27,7 +27,5 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
-        
-        // for config ==> https://laravel.com/docs/8.x/passport
     }
 }

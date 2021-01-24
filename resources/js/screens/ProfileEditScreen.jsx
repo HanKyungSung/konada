@@ -7,7 +7,7 @@ import Loader from '../components/utilities/Loader';
 
 import { loadProfile, editProfile } from '../actions/profileActions';
 
-const ProfileEditScreen = () => {
+const ProfileEditScreen = (match) => {
   const [newProfile, setNewProfile] = useState({
     username: '',
     name: '',
