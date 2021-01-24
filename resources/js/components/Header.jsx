@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { logout } from '../actions/userActions';
+import { login, logout, isLoggedIn } from '../actions/userActions';
+import { loadState } from '../localStorage';
 
 const Header = () => {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(isLoggedIn());
+  }, [dispatch]);
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  console.log(userLogin);
+  console.log(userInfo);
+
   const logoutHandler = () => {
     dispatch(logout());
+    localStorage.clear();
   };
   return (
     <header>
@@ -24,9 +31,9 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <LinkContainer to="/category">
+              <LinkContainer to="/dashboard">
                 <Nav.Link>
-                  <i className="fas fa-book-open"></i> Category
+                  <i className="fas fa-book-open"></i> dashboard
                 </Nav.Link>
               </LinkContainer>
               {/* <LinkContainer to="/cart">
