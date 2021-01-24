@@ -54,7 +54,7 @@ export const editProfile = (newProfile) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/user/profile/${newProfile._id}`,
+      `/api/user/profile/${newProfile._id}/edit`,
       newProfile,
       config
     );
