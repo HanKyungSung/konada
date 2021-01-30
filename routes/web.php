@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ProfileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +19,4 @@ Route::get('{any}', function () {
     return view('index');
 })->where('any','.*');
 
-Route::post('/user/profile/{userId}/edit', [AuthController::class, 'editProfile']);
+Route::post('/user/profile/{userId}/edit', [ProfileController::class, 'edit']);

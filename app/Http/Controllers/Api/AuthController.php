@@ -45,14 +45,4 @@ class AuthController extends Controller
 
         return response($userInfo);
     }
-
-    public function edit(Request $request) {
-        $newProfile = $request->validate([
-            'name' => 'max:55',
-            'email' => 'email|unique:users',
-            'password' => 'confirmed',
-        ]);
-
-        $user = User::findOrFail();
-    }
 }
