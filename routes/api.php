@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
@@ -28,3 +29,4 @@ Route::get('/transactions/{id}', [TransactionController::class, 'show']);
 Route::put('/transactions/{id}',[TransactionController::class, 'update']);
 Route::delete('/transactions/{id}',[TransactionController::class, 'destroy']);
 Route::post('/transactions',[TransactionController::class, 'store']);
+Route::middleware('auth:api')->post('/post', [PostController::class, 'store']);
