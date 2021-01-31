@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/transactions',[TransactionController::class, 'index']);
+Route::get('/transactions/{id}', [TransactionController::class, 'show']);
+Route::put('/transactions/{id}',[TransactionController::class, 'update']);
+Route::delete('/transactions/{id}',[TransactionController::class, 'destroy']);
+Route::post('/transactions',[TransactionController::class, 'store']);
