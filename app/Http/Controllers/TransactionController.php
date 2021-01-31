@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Resources\TransactionResource;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -17,10 +18,18 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        Log::info('init');
-        $transcations = Transaction::paginate(15);
+        // $transcations = Transaction::paginate(15);
 
-        return TransactionResource::collection($transcations);
+        // return TransactionResource::collection($transcations);
+
+        $transcations = DB::table('transactions')
+                            ->join('bids', 'transactions.bid_id', '=', 'bids.id')
+                            ->join('posts', 'bids.post_id', '=', 'posts.id')
+                            ->select('*', 'bids.user_id as buyer_id')
+                            //TODO:get seller_id from post.user_id
+                            ->get();
+
+        return response()->json($transcations);
     }
 
     /**
