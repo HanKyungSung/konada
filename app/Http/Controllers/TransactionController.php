@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Resources\TransactionResource;
 
 class TransactionController extends Controller
 {
@@ -13,7 +17,10 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        Log::info('init');
+        $transcations = Transaction::paginate(15);
+
+        return TransactionResource::collection($transcations);
     }
 
     /**
@@ -34,7 +41,16 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $transcation = $request->isMethod('put')
+            ? Transaction::findOrFail($request->id) : new Transaction;
+
+        $transcation->bid_id = $request->input('bid_id');
+        $transcation->status = 0;
+
+        if ($transcation->save()) {
+            return new TransactionResource($transcation);
+        }
     }
 
     /**
@@ -45,7 +61,11 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        //
+        $transcation = Transaction::findOrFail($id);
+
+        if ($transcation->delete()) {
+            return new TransactionResource($transcation);
+        }
     }
 
     /**
@@ -79,6 +99,9 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transcation = Transaction::findOrFail($id);
+        if ($transcation->delete()) {
+            return new TransactionResource($transcation);
+        }
     }
 }
