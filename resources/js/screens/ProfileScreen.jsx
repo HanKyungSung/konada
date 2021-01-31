@@ -8,7 +8,7 @@ import Message from '../components/utilities/Message';
 
 import { loadProfile } from '../actions/profileActions';
 
-const ProfileScreen = ({ match }) => {
+const ProfileScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -17,7 +17,11 @@ const ProfileScreen = ({ match }) => {
   const { loading, error } = userLogin;
 
   useEffect(() => {
-
+    if(userLogin.userInfo === undefined)
+    {
+      history.push('/login');
+    }
+    
     // dispatch(loadProfile(match.params.userId));
     dispatch(loadProfile(userLogin.userInfo));
   }, [dispatch, match]);
