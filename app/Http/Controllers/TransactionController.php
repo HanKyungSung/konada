@@ -55,11 +55,12 @@ class TransactionController extends Controller
             ? Transaction::findOrFail($request->id) : new Transaction;
 
         $transcation->bid_id = $request->input('bid_id');
-        $transcation->status = 0;
+        $transcation->status = 1;
 
         if ($transcation->save()) {
             return new TransactionResource($transcation);
         }
+        //TODO: Exception handling the result of gettng data from DB 
     }
 
     /**
@@ -75,6 +76,7 @@ class TransactionController extends Controller
         if ($transcation->delete()) {
             return new TransactionResource($transcation);
         }
+        //TODO: Exception handling reguarding to the result of storing data in DB 
     }
 
     /**
@@ -112,5 +114,7 @@ class TransactionController extends Controller
         if ($transcation->delete()) {
             return new TransactionResource($transcation);
         }
+
+        //TODO: Exception handling reguarding to the result of storing data in DB 
     }
 }
