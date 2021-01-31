@@ -8,6 +8,12 @@ import {
   USER_REGISTER_SUCCESS,
 } from '../constants/userConstants';
 
+import {
+  PROFILE_EDIT_REQUEST,
+  PROFILE_EDIT_SUCCESS,
+  PROFILE_EDIT_FAIL,
+} from '../constants/profileConstants';
+
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
@@ -18,6 +24,10 @@ export const userLoginReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case USER_LOGOUT:
       return {};
+    case PROFILE_EDIT_SUCCESS: {
+      const { data } = action;
+      return { ...state, userInfo: { ...state.userInfo, name: data.name } };
+    }
     default:
       return state;
   }

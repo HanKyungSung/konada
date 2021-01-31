@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::middleware('auth:api')->get('/user', [UserController::class, 'show']);
+Route::middleware('auth:api')->put('/user/update', [UserController::class, 'update']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

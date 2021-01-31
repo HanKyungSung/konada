@@ -8,6 +8,7 @@ import {
   PROFILE_EDIT_FAIL,
 } from '../constants/profileConstants';
 import { login, logout } from './userActions';
+import { saveState, loadState } from '../localStorage';
 
 export const loadProfile = (userInfo) => async (dispatch) => {
   try {
@@ -54,29 +55,28 @@ export const editProfile = (newProfile) => async (dispatch, getState) => {
     dispatch({
       type: PROFILE_EDIT_REQUEST,
     });
-
-    const {
-      login: { userInfo },
-    } = getState();
+    const { userLogin } = getState();
 
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userLogin.userInfo.token}`,
       },
     };
 
     const { data } = await axios.put(
-      `/api/user/profile/${newProfile._id}/edit`,
+      `/api/user/update`,
       newProfile,
       config
     );
 
     dispatch({
       type: PROFILE_EDIT_SUCCESS,
+      data
     });
 
-    localStorage.setItem('uesrInfo', JSON.stringify(data));
+    saveState('userInfo', data);
+    // localStorage.setItem('uesrInfo', JSON.stringify(data));
   } catch (error) {
     const message =
       error.response && error.response.data.message
