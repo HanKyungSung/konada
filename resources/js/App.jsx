@@ -8,6 +8,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ProfileEditScreen from './screens/ProfileEditScreen';
+import PostingScreen from './screens/PostingScreen';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             path="/user/profile/:userId/edit"
             component={ProfileEditScreen}
           />
+          <Route path="/posting" component={PostingScreen} />
         </Container>
       </main>
       <Footer />

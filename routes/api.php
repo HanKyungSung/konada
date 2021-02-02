@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +28,10 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/user/profile/{userId}/edit', [ProfileController::class, 'edit']);
+
+Route::get('/transactions',[TransactionController::class, 'index']);
+Route::get('/transactions/{id}', [TransactionController::class, 'show']);
+Route::put('/transactions/{id}',[TransactionController::class, 'update']);
+Route::delete('/transactions/{id}',[TransactionController::class, 'destroy']);
+Route::post('/transactions',[TransactionController::class, 'store']);
+Route::middleware('auth:api')->post('/post', [PostController::class, 'store']);
