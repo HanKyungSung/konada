@@ -6,10 +6,10 @@ import { Container, Form, Button } from 'react-bootstrap';
 import Message from '../components/utilities/Message';
 import Loader from '../components/utilities/Loader';
 
-import { loadProfile, editProfile } from '../redux/actions/profileActions';
+import { loadUserInfo, editUserInfo } from '../redux/actions/userActions';
 
-const ProfileEditScreen = ({match}) => {
-  const [newProfile, setNewProfile] = useState({
+const ProfileEditScreen = ({ match }) => {
+  const [newUserInfo, setNewUserInfo] = useState({
     // username: '',
     // email: '',
     name: '',
@@ -20,23 +20,20 @@ const ProfileEditScreen = ({match}) => {
   const profileData = useSelector((state) => state.loadProfileReducer);
   const userLogin = useSelector((state) => state.userLogin);
 
-  const { loading, error, profile } = profileData;
+  const { loading, error, userInfo } = profileData;
 
   let history = useHistory();
 
   useEffect(() => {
-    if(userLogin.userInfo === undefined)
-    {
+    if (userLogin.userInfo === undefined) {
       history.push('/login');
-    }
-    else
-    {
-      setNewProfile({ name: userLogin.userInfo.name });
+    } else {
+      setNewUserInfo({ name: userLogin.userInfo.name });
     }
     // TODO: need to get an user id for an active user.
   }, [dispatch]);
 
-  const editProfileHandler = (e) => {
+  const editUserInfoHandler = (e) => {
     e.preventDefault();
     const { name } = userLogin.userInfo;
 
@@ -48,7 +45,7 @@ const ProfileEditScreen = ({match}) => {
   return (
     <Container>
       <h1>Edit profile</h1>
-      <Form onSubmit={editProfileHandler}>
+      <Form onSubmit={editUserInfoHandler}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
