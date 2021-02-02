@@ -1,4 +1,7 @@
 import axios from 'axios';
+
+import { saveState, loadState } from '../../localStorage';
+
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -8,7 +11,6 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../constants/userConstants';
-import { saveState, loadState } from '../localStorage';
 
 export const login = (email, password) => async (dispatch) => {
   try {

@@ -9,9 +9,7 @@ export const loadProfileReducer = (
     loading: null,
     error: null,
     profile: null,
-  },
-  action
-) => {
+  }, action) => {
   switch (action.type) {
     case PROFILE_LOAD_REQUEST:
       return {

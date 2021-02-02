@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Loader from '../components/utilities/Loader';
 import Message from '../components/utilities/Message';
 
-import { loadProfile } from '../actions/profileActions';
+import { loadProfile } from '../redux/actions/profileActions';
 
 const ProfileScreen = ({ match, history }) => {
   const dispatch = useDispatch();

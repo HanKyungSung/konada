@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { login, logout, isLoggedIn } from '../actions/userActions';
+
 import { loadState } from '../localStorage';
+
+import { login, logout, isLoggedIn } from '../redux/actions/userActions';
 
 const Header = () => {
   const dispatch = useDispatch();

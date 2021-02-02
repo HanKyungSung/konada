@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+import { login, logout } from './userActions';
 import {
   PROFILE_LOAD_REQUEST,
   PROFILE_LOAD_SUCCESS,
@@ -7,8 +9,6 @@ import {
   PROFILE_EDIT_SUCCESS,
   PROFILE_EDIT_FAIL,
 } from '../constants/profileConstants';
-import { login, logout } from './userActions';
-import { saveState, loadState } from '../localStorage';
 
 export const loadProfile = (userInfo) => async (dispatch) => {
   try {
@@ -20,7 +20,7 @@ export const loadProfile = (userInfo) => async (dispatch) => {
     // );
 
     const { token } = userInfo;
-    
+
     const response = await axios.get(
       `/api/user`,
       {
@@ -34,11 +34,11 @@ export const loadProfile = (userInfo) => async (dispatch) => {
     // const profile = profileData.find((p) => p.id === userId);
     // const profile = profileData.data[userId - 1];
 
-  dispatch({
-    type: PROFILE_LOAD_SUCCESS,
-    payload: response.data,
-  });
-  
+    dispatch({
+      type: PROFILE_LOAD_SUCCESS,
+      payload: response.data,
+    });
+
   } catch (error) {
     // dispatch({
     //   type: PROFILE_LOAD_FAIL,
