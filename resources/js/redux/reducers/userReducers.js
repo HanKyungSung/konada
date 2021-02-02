@@ -7,6 +7,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../constants/userConstants';
+import {
+  USERINFO_EDIT_SUCCESS,
+} from '../constants/userInfoConstants';
 
 export const userLoginReducer = (
   state = {
@@ -23,7 +26,7 @@ export const userLoginReducer = (
       return { loading: false, error: action.payload };
     case USER_LOGOUT:
       return {};
-    case PROFILE_EDIT_SUCCESS: {
+    case USERINFO_EDIT_SUCCESS: {
       const { data } = action;
       return { ...state, userInfo: { ...state.userInfo, name: data.name } };
     }
