@@ -47,7 +47,9 @@ class UserController extends Controller
     // public function show(User $user)
     public function show(Request $request)
     {
-        return response(\Auth::user());
+        $user = \Auth::user();
+
+        return response($user);
     }
 
     /**
@@ -68,7 +70,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string'
