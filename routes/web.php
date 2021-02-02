@@ -18,5 +18,3 @@ use App\Http\Controllers\ProfileController;
 Route::get('{any}', function () {
     return view('index');
 })->where('any','.*');
-
-Route::post('/user/profile/{userId}/edit', [ProfileController::class, 'edit']);
