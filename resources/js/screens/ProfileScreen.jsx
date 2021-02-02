@@ -6,24 +6,20 @@ import { Link } from 'react-router-dom';
 import Loader from '../components/utilities/Loader';
 import Message from '../components/utilities/Message';
 
-import { loadProfile } from '../redux/actions/profileActions';
+import { loadUserInfo } from '../redux/actions/userActions';
 
 const ProfileScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const profileData = useSelector((state) => state.loadProfileReducer);
-  // const { loading, error, profile } = profileData;
-  const { loading, error } = userLogin;
+  const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
-    if(userLogin.userInfo === undefined)
-    {
+    if (userInfo === undefined) {
       history.push('/login');
     }
-    
-    // dispatch(loadProfile(match.params.userId));
-    dispatch(loadProfile(userLogin.userInfo));
+
+    dispatch(loadUserInfo(userInfo));
   }, [dispatch, match]);
   // TODO: if no userId is given, load the active user's profile by default.
 
@@ -37,8 +33,7 @@ const ProfileScreen = ({ match, history }) => {
       ) : (
         <>
           <Row>
-            {/* <p>Hi, {profile === null ? '' : profile.username}</p> */}
-            {/* I really don't like this way of reading data. */}
+            <p>Hi, {userInfo === null ? '' : userInfo}</p>
           </Row>
           <Row>
             <Link to={`/user/profile/${match.params.userId}/edit`}>

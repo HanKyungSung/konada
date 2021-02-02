@@ -6,10 +6,11 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-} from '../constants/userConstants';
-import {
+  USERINFO_LOAD_REQUEST,
+  USERINFO_LOAD_SUCCESS,
+  USERINFO_LOAD_FAIL,
   USERINFO_EDIT_SUCCESS,
-} from '../constants/userInfoConstants';
+} from '../constants/userConstants';
 
 export const userLoginReducer = (
   state = {
@@ -50,6 +51,34 @@ export const userRegisterReducer = (
       return { loading: false, error: action.payload };
     case USER_LOGOUT:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const loadUserInfoReducer = (
+  state = {
+    loading: null,
+    error: null,
+    userInfo: null,
+  },
+  action
+) => {
+  switch (action.type) {
+    case USERINFO_LOAD_REQUEST:
+      return {
+        loading: true,
+      };
+    case USERINFO_LOAD_SUCCESS:
+      return {
+        loading: false,
+        userInfo: action.payload,
+      };
+    case USERINFO_LOAD_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
