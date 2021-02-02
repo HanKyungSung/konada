@@ -18,5 +18,3 @@ use App\Http\Controllers\ProfileController;
 Route::get('{any}', function () {
     return view('index');
 })->where('any', '^(?!api\/)[\/\w\.\,-]*');
-
-Route::post('/user/profile/{userId}/edit', [AuthController::class, 'editProfile']);
