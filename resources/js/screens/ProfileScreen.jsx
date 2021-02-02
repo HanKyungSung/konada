@@ -8,14 +8,22 @@ import Message from '../components/utilities/Message';
 
 import { loadProfile } from '../actions/profileActions';
 
-const ProfileScreen = ({ match }) => {
+const ProfileScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
   const profileData = useSelector((state) => state.loadProfileReducer);
-  const { loading, error, profile } = profileData;
+  // const { loading, error, profile } = profileData;
+  const { loading, error } = userLogin;
 
   useEffect(() => {
-    dispatch(loadProfile(match.params.userId));
+    if(userLogin.userInfo === undefined)
+    {
+      history.push('/login');
+    }
+    
+    // dispatch(loadProfile(match.params.userId));
+    dispatch(loadProfile(userLogin.userInfo));
   }, [dispatch, match]);
   // TODO: if no userId is given, load the active user's profile by default.
 
@@ -29,7 +37,7 @@ const ProfileScreen = ({ match }) => {
       ) : (
         <>
           <Row>
-            <p>Hi, {profile === null ? '' : profile.username}</p>
+            {/* <p>Hi, {profile === null ? '' : profile.username}</p> */}
             {/* I really don't like this way of reading data. */}
           </Row>
           <Row>
