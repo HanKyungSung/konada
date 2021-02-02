@@ -23,6 +23,10 @@ export const userLoginReducer = (
       return { loading: false, error: action.payload };
     case USER_LOGOUT:
       return {};
+    case PROFILE_EDIT_SUCCESS: {
+      const { data } = action;
+      return { ...state, userInfo: { ...state.userInfo, name: data.name } };
+    }
     default:
       return state;
   }
