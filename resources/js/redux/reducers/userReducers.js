@@ -8,7 +8,12 @@ import {
   USER_REGISTER_SUCCESS,
 } from '../constants/userConstants';
 
-export const userLoginReducer = (state = {}, action) => {
+export const userLoginReducer = (
+  state = {
+    loading: null,
+    userInfo: null,
+    error: null,
+  }, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
@@ -23,7 +28,12 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
-export const userRegisterReducer = (state = {}, action) => {
+export const userRegisterReducer = (
+  state = {
+    loading: null,
+    userInfo: null,
+    error: null,
+  }, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return { loading: true };

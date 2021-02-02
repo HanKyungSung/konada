@@ -6,7 +6,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 import Message from '../components/utilities/Message';
 import Loader from '../components/utilities/Loader';
 
-import { loadProfile, editProfile } from '../actions/profileActions';
+import { loadProfile, editProfile } from '../redux/actions/profileActions';
 
 const ProfileEditScreen = (match) => {
   const [newProfile, setNewProfile] = useState({

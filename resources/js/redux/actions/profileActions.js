@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+import { login, logout } from './userActions';
 import {
   PROFILE_LOAD_REQUEST,
   PROFILE_LOAD_SUCCESS,
@@ -7,7 +9,6 @@ import {
   PROFILE_EDIT_SUCCESS,
   PROFILE_EDIT_FAIL,
 } from '../constants/profileConstants';
-import { login, logout } from './userActions';
 
 export const loadProfile = (userId) => async (dispatch) => {
   try {
