@@ -15,8 +15,8 @@ import {
 export const userLoginReducer = (
   state = {
     loading: null,
-    userInfo: null,
     error: null,
+    userInfo: null,
   }, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
@@ -39,8 +39,8 @@ export const userLoginReducer = (
 export const userRegisterReducer = (
   state = {
     loading: null,
-    userInfo: null,
     error: null,
+    userInfo: null,
   }, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:

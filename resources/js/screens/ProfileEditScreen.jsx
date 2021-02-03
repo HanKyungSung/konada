@@ -15,30 +15,27 @@ const ProfileEditScreen = ({ match }) => {
     name: '',
   });
 
-  const dispatch = useDispatch();
-
-  const profileData = useSelector((state) => state.loadProfileReducer);
-  const userLogin = useSelector((state) => state.userLogin);
-
-  const { loading, error, userInfo } = profileData;
-
   let history = useHistory();
 
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.loadUserInfoReducer);
+  const { loading, error, userInfo } = userLogin;
+
   useEffect(() => {
-    if (userLogin.userInfo === undefined) {
+    if (userInfo === undefined) {
       history.push('/login');
     } else {
-      setNewUserInfo({ name: userLogin.userInfo.name });
+      setNewUserInfo({ name: userInfo.name });
     }
-    // TODO: need to get an user id for an active user.
   }, [dispatch]);
 
   const editUserInfoHandler = (e) => {
     e.preventDefault();
-    const { name } = userLogin.userInfo;
+    const { name } = userInfo;
 
-    dispatch(editProfile(newProfile));
-    history.push(`/user/profile/${match.params.userId}/show`);
+    dispatch(editUserInfo(newUserInfo));
+    history.push(`/user/profile/${userInfo.id}/show`);
     // TODO: provide a feedback to the user.
   };
 
@@ -49,9 +46,9 @@ const ProfileEditScreen = ({ match }) => {
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            value={newProfile.name}
+            value={newUserInfo.name}
             onChange={(e) =>
-              setNewProfile({ ...newProfile, name: e.target.value })
+              setNewUserInfo({ ...newUserInfo, name: e.target.value })
             }
           />
         </Form.Group>

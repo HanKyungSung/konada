@@ -27,6 +27,7 @@ Route::middleware('auth:api')->put('/user/update', [UserController::class, 'upda
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::post('/user/profile/{userId}/show', [ProfileController::class, 'show']);
 Route::post('/user/profile/{userId}/edit', [ProfileController::class, 'edit']);
 
 Route::get('/transactions',[TransactionController::class, 'index']);

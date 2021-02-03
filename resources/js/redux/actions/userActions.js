@@ -127,7 +127,6 @@ export const loadUserInfo = (userInfo) => async (dispatch) => {
 
     const config = {
       headers: {
-        // 'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     }
@@ -173,6 +172,11 @@ export const editUserInfo = (newUserInfo) => async (dispatch, getState) => {
       newUserInfo,
       config
     );
+
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: newUserInfo,
+    });
 
     dispatch({
       type: USERINFO_EDIT_SUCCESS,
