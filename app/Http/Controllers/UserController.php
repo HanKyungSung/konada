@@ -77,7 +77,7 @@ class UserController extends Controller
             'username' => 'required|string',
             'address' => 'string',
             'phone_number' => 'numeric',
-            'email' => 'required|string'
+            'email' => 'required|email'
         ]);
 
         $user = \Auth::user();

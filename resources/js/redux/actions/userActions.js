@@ -74,6 +74,9 @@ export const isLoggedIn = () => (dispatch) => {
 
 export const register = (
   name,
+  username,
+  address,
+  phone_number,
   email,
   password,
   password_confirmation
@@ -91,7 +94,7 @@ export const register = (
 
     const { data } = await axios.post(
       '/api/register',
-      { name, email, password, password_confirmation },
+      { name, username, address, phone_number, email, password, password_confirmation },
       config
     );
 

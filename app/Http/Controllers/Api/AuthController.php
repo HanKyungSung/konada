@@ -10,41 +10,43 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
+	public function register(Request $request)
+	{
+		$validatedData = $request->validate([
+			'name' => 'required|max:25',
+			'username' => 'required|max:10',
+			'address' => '',
+			'phone_number' => 'numeric',
+			'email' => 'required|email|unique:users',
+			'password' => 'required|confirmed',
+		]);
 
-        $validatedData = $request->validate([
-            'name' => 'required|max:55',
-            'email' => 'email|required|unique:users',
-            'password' => 'required|confirmed',
-        ]);
+		$validatedData['password'] = bcrypt($request->password);
 
-        $validatedData['password'] = bcrypt($request->password);
+		$user = User::create($validatedData);
 
-        $user = User::create($validatedData);
+		$accessToken = $user->createToken('authToken')->accessToken;
+		$userInfo = $user;
+		$userInfo -> token = $accessToken; 
 
-        $accessToken = $user->createToken('authToken')->accessToken;
-        $userInfo = $user;
-        $userInfo -> token = $accessToken; 
+		return response($userInfo);
+	}
 
-        return response($userInfo);
-    }
+	public function login(Request $request)
+	{
+		$loginData = $request->validate([
+			'email' => 'required|email',
+			'password' => 'required',
+		]);
 
-    public function login(Request $request)
-    {
-        $loginData = $request->validate([
-            'email' => 'email|required',
-            'password' => 'required',
-        ]);
+		if(!auth()->attempt($loginData)){
+			return response(['message'=>'Invalid credentials']);
+		}
 
-        if(!auth()->attempt($loginData)){
-            return response(['message'=>'Invalid credentials']);
-        }
+		$accessToken = auth()->user()->createToken('authToken')->accessToken;
+		$userInfo = auth()->user();
+		$userInfo -> token = $accessToken;
 
-        $accessToken = auth()->user()->createToken('authToken')->accessToken;
-        $userInfo = auth()->user();
-        $userInfo -> token = $accessToken;
-
-        return response($userInfo);
-    }
+		return response($userInfo);
+	}
 }
