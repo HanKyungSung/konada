@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,7 +9,7 @@ import FormContainer from '../components/FormContainer';
 
 import { register } from '../redux/actions/userActions';
 
-const RegisterScreen = ({ location, history }) => {
+const RegisterScreen = () => {
   const [regInfo, setRegInfo] = useState({
     name: '',
     username: '',
@@ -23,9 +23,10 @@ const RegisterScreen = ({ location, history }) => {
 
   const dispatch = useDispatch();
 
+  let history = useHistory();
+
   const submitHandler = (e) => {
     e.preventDefault();
-
     if (regInfo.password !== regInfo.password_confirmation) {
       setMessage('Passwords do not match');
       // TODO: does this have to be a state?
@@ -40,7 +41,11 @@ const RegisterScreen = ({ location, history }) => {
           regInfo.password,
           regInfo.password_confirmation
         )
+        // TODO: when an user successfully create their account they need to get a feedback rather than just redirected to the main page.
+        // TODO: userInfo needs to be stored on the client machine. ==> when the user refreshes their website, userInfo state will be gone now and it causes a problem.
       );
+
+      history.push('/');
     }
   };
 

@@ -20,6 +20,7 @@ class AuthController extends Controller
 			'email' => 'required|email|unique:users',
 			'password' => 'required|confirmed',
 		]);
+		// TODO: complete the validation.
 
 		$validatedData['password'] = bcrypt($request->password);
 

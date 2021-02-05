@@ -14,12 +14,12 @@ const ProfileEditScreen = ({ match }) => {
     email: '',
   });
 
-  let history = useHistory();
-
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.loadUserInfoReducer);
   const { loading, error, userInfo } = userLogin;
+
+  let history = useHistory();
 
   useEffect(() => {
     if (userInfo === undefined) {
@@ -27,7 +27,7 @@ const ProfileEditScreen = ({ match }) => {
     } else {
       setNewUserInfo({
         name: userInfo.name,
-        usernmae: userInfo.username,
+        username: userInfo.username,
         address: userInfo.address,
         phone_number: userInfo.phone_number,
         email: userInfo.email,

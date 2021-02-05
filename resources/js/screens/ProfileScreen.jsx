@@ -11,7 +11,7 @@ import { loadUserInfo } from '../redux/actions/userActions';
 const ProfileScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
-  const userLoginState = useSelector((state) => state.userLogin);
+  const userLoginState = useSelector((state) => state.userLoginReducer);
   const { loading, error, userInfo } = userLoginState;
   /* TODO: when an user refreshes their web browser, all states are gone.
       what would be the best practice? localStorage?

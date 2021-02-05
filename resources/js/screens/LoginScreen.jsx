@@ -18,18 +18,18 @@ const LoginScreen = ({ location, history }) => {
 
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector((state) => state.userLoginReducer);
   const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo || loadState('userInfo')) {
-      history.push('/login');
+      history.push('/');
     }
-  }, [history, userInfo]);
+  }, [history, userInfo, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(userInfo.email, userInfo.password));
+    dispatch(login(loginInfo.email, loginInfo.password));
   };
 
   return (

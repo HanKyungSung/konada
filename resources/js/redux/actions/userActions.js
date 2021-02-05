@@ -94,7 +94,15 @@ export const register = (
 
     const { data } = await axios.post(
       '/api/register',
-      { name, username, address, phone_number, email, password, password_confirmation },
+      {
+        name,
+        username,
+        address,
+        phone_number,
+        email,
+        password,
+        password_confirmation,
+      },
       config
     );
 
@@ -132,18 +140,14 @@ export const loadUserInfo = (userInfo) => async (dispatch) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    };
 
-    const response = await axios.get(
-      `/api/user`,
-      config
-    );
+    const response = await axios.get(`/api/user`, config);
 
     dispatch({
       type: USERINFO_LOAD_SUCCESS,
       payload: response.data,
     });
-
   } catch (error) {
     dispatch({
       type: USERINFO_LOAD_FAIL,
@@ -170,11 +174,7 @@ export const editUserInfo = (newUserInfo) => async (dispatch, getState) => {
       },
     };
 
-    const response = await axios.put(
-      `/api/user/update`,
-      newUserInfo,
-      config
-    );
+    const response = await axios.put(`/api/user/update`, newUserInfo, config);
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
@@ -189,9 +189,10 @@ export const editUserInfo = (newUserInfo) => async (dispatch, getState) => {
     saveState('userInfo', response.data);
     // localStorage.setItem('uesrInfo', JSON.stringify(data));
   } catch (error) {
-    const message = error.response && error.response.data.message
-      ? error.response.data.message
-      : error.message;
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
 
     if (message === 'Not authroized, token failed') {
       dispatch(logout());
