@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Log;
 
 class PostController extends Controller
 {
@@ -70,15 +72,17 @@ class PostController extends Controller
         return response($post);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
+    public function getPostsByCategory(Request $request)
     {
-        //
+        $posts = Post::where('category_id',$request->category)->with('category')->get();
+
+        return response($posts);
+    }
+
+    public function getPostById(Request $request)
+    {
+        $post = Post::with('bids')->find($request->id);
+        return response($post);
     }
 
     /**
