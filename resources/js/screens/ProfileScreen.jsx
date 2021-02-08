@@ -20,8 +20,6 @@ const ProfileScreen = ({ match, history }) => {
   useEffect(() => {
     if (userInfo === undefined) {
       history.push('/login');
-    } else {
-      dispatch(loadUserInfo(userInfo));
     }
   }, [dispatch, match]);
 

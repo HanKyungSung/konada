@@ -16,7 +16,7 @@ const ProfileEditScreen = ({ match }) => {
 
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.loadUserInfoReducer);
+  const userLogin = useSelector((state) => state.userLoginReducer);
   const { loading, error, userInfo } = userLogin;
 
   let history = useHistory();

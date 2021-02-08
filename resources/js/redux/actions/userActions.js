@@ -10,9 +10,6 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USERINFO_LOAD_REQUEST,
-  USERINFO_LOAD_SUCCESS,
-  USERINFO_LOAD_FAIL,
   USERINFO_EDIT_REQUEST,
   USERINFO_EDIT_SUCCESS,
   USERINFO_EDIT_FAIL,
@@ -130,47 +127,18 @@ export const register = (
   }
 };
 
-export const loadUserInfo = (userInfo) => async (dispatch) => {
-  try {
-    dispatch({ type: USERINFO_LOAD_REQUEST });
-
-    const { token } = userInfo;
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    const response = await axios.get(`/api/user`, config);
-
-    dispatch({
-      type: USERINFO_LOAD_SUCCESS,
-      payload: response.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: USERINFO_LOAD_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
 export const editUserInfo = (newUserInfo) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USERINFO_EDIT_REQUEST,
     });
 
-    const { userLogin } = getState();
+    const { userLoginReducer } = getState();
 
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userLogin.userInfo.token}`,
+        Authorization: `Bearer ${userLoginReducer.userInfo.token}`,
       },
     };
 
@@ -178,13 +146,9 @@ export const editUserInfo = (newUserInfo) => async (dispatch, getState) => {
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: newUserInfo,
-    });
-
-    dispatch({
-      type: USERINFO_EDIT_SUCCESS,
       payload: response.data,
     });
+    // TODO: need to change the name of constant. combine login and edit.
 
     saveState('userInfo', response.data);
     // localStorage.setItem('uesrInfo', JSON.stringify(data));
