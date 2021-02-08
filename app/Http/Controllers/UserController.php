@@ -73,7 +73,11 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'username' => 'required|string',
+            'address' => 'string',
+            'phone_number' => 'numeric',
+            'email' => 'required|email'
         ]);
 
         $user = \Auth::user();

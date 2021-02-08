@@ -6,22 +6,20 @@ import { Link } from 'react-router-dom';
 import Loader from '../components/utilities/Loader';
 import Message from '../components/utilities/Message';
 
-import { loadUserInfo } from '../redux/actions/userActions';
-
 const ProfileScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const userLoginState = useSelector((state) => state.userLoginReducer);
+  const { loading, error, userInfo } = userLoginState;
+  /* TODO: when an user refreshes their web browser, all states are gone.
+      what would be the best practice? localStorage?
+  */
 
   useEffect(() => {
     if (userInfo === undefined) {
       history.push('/login');
     }
-
-    dispatch(loadUserInfo(userInfo));
   }, [dispatch, match]);
-  // TODO: if no userId is given, load the active user's profile by default.
 
   return (
     <Container>
@@ -33,12 +31,10 @@ const ProfileScreen = ({ match, history }) => {
       ) : (
         <>
           <Row>
-            <p>Hi, {userInfo === null ? '' : userInfo}</p>
+            <p>Hi, {userInfo.name}</p>
           </Row>
           <Row>
-            <Link to={`/user/profile/${match.params.userId}/edit`}>
-              Edit profile
-            </Link>
+            <Link to={`/user/profile/${userInfo.id}/edit`}>Edit profile</Link>
           </Row>
         </>
       )}

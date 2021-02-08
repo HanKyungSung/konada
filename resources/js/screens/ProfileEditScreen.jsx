@@ -3,42 +3,42 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Form, Button } from 'react-bootstrap';
 
-import Message from '../components/utilities/Message';
-import Loader from '../components/utilities/Loader';
-
-import { loadUserInfo, editUserInfo } from '../redux/actions/userActions';
+import { editUserInfo } from '../redux/actions/userActions';
 
 const ProfileEditScreen = ({ match }) => {
   const [newUserInfo, setNewUserInfo] = useState({
-    // username: '',
-    // email: '',
     name: '',
+    username: '',
+    address: '',
+    phone_number: '',
+    email: '',
   });
 
   const dispatch = useDispatch();
 
-  const profileData = useSelector((state) => state.loadProfileReducer);
-  const userLogin = useSelector((state) => state.userLogin);
-
-  const { loading, error, userInfo } = profileData;
+  const userLogin = useSelector((state) => state.userLoginReducer);
+  const { loading, error, userInfo } = userLogin;
 
   let history = useHistory();
 
   useEffect(() => {
-    if (userLogin.userInfo === undefined) {
+    if (userInfo === undefined) {
       history.push('/login');
     } else {
-      setNewUserInfo({ name: userLogin.userInfo.name });
+      setNewUserInfo({
+        name: userInfo.name,
+        username: userInfo.username,
+        address: userInfo.address,
+        phone_number: userInfo.phone_number,
+        email: userInfo.email,
+      });
     }
-    // TODO: need to get an user id for an active user.
   }, [dispatch]);
 
   const editUserInfoHandler = (e) => {
     e.preventDefault();
-    const { name } = userLogin.userInfo;
-
-    dispatch(editProfile(newProfile));
-    history.push(`/user/profile/${match.params.userId}/show`);
+    dispatch(editUserInfo(newUserInfo));
+    history.push(`/user/profile/${userInfo.id}/show`);
     // TODO: provide a feedback to the user.
   };
 
@@ -49,9 +49,45 @@ const ProfileEditScreen = ({ match }) => {
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            value={newProfile.name}
+            value={newUserInfo.name}
             onChange={(e) =>
-              setNewProfile({ ...newProfile, name: e.target.value })
+              setNewUserInfo({ ...newUserInfo, name: e.target.value })
+            }
+          />
+        </Form.Group>
+        <Form.Group controlId="username">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            value={newUserInfo.username}
+            onChange={(e) =>
+              setNewUserInfo({ ...newUserInfo, username: e.target.value })
+            }
+          />
+        </Form.Group>
+        <Form.Group controlId="address">
+          <Form.Label>Address</Form.Label>
+          <Form.Control
+            value={newUserInfo.address}
+            onChange={(e) =>
+              setNewUserInfo({ ...newUserInfo, address: e.target.value })
+            }
+          />
+        </Form.Group>
+        <Form.Group controlId="phone_number">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            value={newUserInfo.phone_number}
+            onChange={(e) =>
+              setNewUserInfo({ ...newUserInfo, phone_number: e.target.value })
+            }
+          />
+        </Form.Group>
+        <Form.Group controlId="email">
+          <Form.Label>E-mail</Form.Label>
+          <Form.Control
+            value={newUserInfo.email}
+            onChange={(e) =>
+              setNewUserInfo({ ...newUserInfo, email: e.target.value })
             }
           />
         </Form.Group>

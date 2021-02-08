@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,59 +9,108 @@ import FormContainer from '../components/FormContainer';
 
 import { register } from '../redux/actions/userActions';
 
-const RegisterScreen = ({ location, history }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password_confirmation, setPassword_confirmation] = useState('');
+const RegisterScreen = () => {
+  const [regInfo, setRegInfo] = useState({
+    name: '',
+    username: '',
+    address: '',
+    phone_number: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+  });
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
 
-  const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error, userInfo } = userRegister;
-
-  const redirect = location.search ? location.search.split('=')[1] : '/';
-
-  useEffect(() => {
-    if (userInfo) {
-      history.push(redirect);
-    }
-  }, [history, userInfo, redirect]);
+  let history = useHistory();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password !== password_confirmation) {
+    if (regInfo.password !== regInfo.password_confirmation) {
       setMessage('Passwords do not match');
+      // TODO: does this have to be a state?
     } else {
-      dispatch(register(name, email, password, password_confirmation));
+      dispatch(
+        register(
+          regInfo.name,
+          regInfo.username,
+          regInfo.address,
+          regInfo.phone_number,
+          regInfo.email,
+          regInfo.password,
+          regInfo.password_confirmation
+        )
+        // TODO: when an user successfully create their account they need to get a feedback rather than just redirected to the main page.
+        // TODO: userInfo needs to be stored on the client machine. ==> when the user refreshes their website, userInfo state will be gone now and it causes a problem.
+      );
+
+      history.push('/');
     }
   };
 
   return (
     <FormContainer>
       <h1>Sign Up</h1>
-      {message && <Message variant="danger">{message}</Message>}
+
+      {/* {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
-      {loading && <Loader />}
+      {loading && <Loader />} */}
+
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="name"
             placeholder="Enter name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={regInfo.name}
+            onChange={(e) => setRegInfo({ ...regInfo, name: e.target.value })}
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="username">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="username"
+            placeholder="Enter Username"
+            value={regInfo.username}
+            onChange={(e) =>
+              setRegInfo({ ...regInfo, username: e.target.value })
+            }
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="address">
+          <Form.Label>Address</Form.Label>
+          <Form.Control
+            type="address"
+            placeholder="Enter Address"
+            value={regInfo.address}
+            onChange={(e) =>
+              setRegInfo({ ...regInfo, address: e.target.value })
+            }
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="phone_number">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type="phone_number"
+            placeholder="Enter Phone Number"
+            value={regInfo.phone_number}
+            onChange={(e) =>
+              setRegInfo({ ...regInfo, phone_number: e.target.value })
+            }
           ></Form.Control>
         </Form.Group>
 
         <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>E-mail</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter E-mail"
+            value={regInfo.email}
+            onChange={(e) => setRegInfo({ ...regInfo, email: e.target.value })}
           ></Form.Control>
         </Form.Group>
 
@@ -69,9 +118,11 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter Password"
+            value={regInfo.password}
+            onChange={(e) =>
+              setRegInfo({ ...regInfo, password: e.target.value })
+            }
           ></Form.Control>
         </Form.Group>
 
@@ -79,9 +130,11 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Confirm password"
-            value={password_confirmation}
-            onChange={(e) => setPassword_confirmation(e.target.value)}
+            placeholder="Confirm Password"
+            value={regInfo.password_confirmation}
+            onChange={(e) =>
+              setRegInfo({ ...regInfo, password_confirmation: e.target.value })
+            }
           ></Form.Control>
         </Form.Group>
 
@@ -92,10 +145,7 @@ const RegisterScreen = ({ location, history }) => {
 
       <Row className="py-3">
         <Col>
-          Have an Account?{' '}
-          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
-            Login
-          </Link>
+          Have an Account? <Link to={'/login'}>Login</Link>
         </Col>
       </Row>
     </FormContainer>

@@ -10,17 +10,18 @@ import { login, logout, isLoggedIn } from '../redux/actions/userActions';
 const Header = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(isLoggedIn());
-  }, [dispatch]);
-
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector((state) => state.userLoginReducer);
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
     dispatch(logout());
     localStorage.clear();
   };
+
+  useEffect(() => {
+    dispatch(isLoggedIn());
+  }, [dispatch]);
+
   return (
     <header>
       <Navbar bg="danger" variant="dark" expand="lg" collapseOnSelect>

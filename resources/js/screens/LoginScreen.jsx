@@ -8,29 +8,28 @@ import Loader from '../components/utilities/Loader';
 import FormContainer from '../components/FormContainer';
 
 import { loadState } from '../localStorage';
-
 import { login } from '../redux/actions/userActions';
 
 const LoginScreen = ({ location, history }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginInfo, setLoginInfo] = useState({
+    email: '',
+    password: '',
+  });
 
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector((state) => state.userLoginReducer);
   const { loading, error, userInfo } = userLogin;
-
-  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   useEffect(() => {
     if (userInfo || loadState('userInfo')) {
-      history.push(redirect);
+      history.push('/');
     }
-  }, [history, userInfo, redirect]);
+  }, [history, userInfo, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(login(loginInfo.email, loginInfo.password));
   };
 
   return (
@@ -40,12 +39,14 @@ const LoginScreen = ({ location, history }) => {
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter E-mail"
+            value={loginInfo.email}
+            onChange={(e) =>
+              setLoginInfo({ ...loginInfo, email: e.target.value })
+            }
           ></Form.Control>
         </Form.Group>
 
@@ -53,9 +54,11 @@ const LoginScreen = ({ location, history }) => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter Password"
+            value={loginInfo.password}
+            onChange={(e) =>
+              setLoginInfo({ ...loginInfo, password: e.target.value })
+            }
           ></Form.Control>
         </Form.Group>
 
@@ -66,10 +69,7 @@ const LoginScreen = ({ location, history }) => {
 
       <Row className="py-3">
         <Col>
-          New Customer?
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-            Register
-          </Link>
+          New Customer? <Link to={'/register'}>Register</Link>
         </Col>
       </Row>
     </FormContainer>
