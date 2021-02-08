@@ -6,14 +6,12 @@ import { productListReducer } from './redux/reducers/productReducers';
 import {
   userLoginReducer,
   userRegisterReducer,
-  loadUserInfoReducer,
 } from './redux/reducers/userReducers';
 
 const reducer = combineReducers({
   productListReducer,
   userLoginReducer,
   userRegisterReducer,
-  loadUserInfoReducer,
 });
 
 const initialState = {};

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Form, Button } from 'react-bootstrap';
 
-import { loadUserInfo, editUserInfo } from '../redux/actions/userActions';
+import { editUserInfo } from '../redux/actions/userActions';
 
 const ProfileEditScreen = ({ match }) => {
   const [newUserInfo, setNewUserInfo] = useState({
