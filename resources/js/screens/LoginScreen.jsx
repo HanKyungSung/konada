@@ -8,7 +8,7 @@ import Loader from '../components/utilities/Loader';
 import FormContainer from '../components/FormContainer';
 
 import { loadState } from '../localStorage';
-import { login } from '../redux/actions/userActions';
+import { login, loginWithGoogle } from '../redux/actions/userActions';
 
 const LoginScreen = ({ location, history }) => {
   const [loginInfo, setLoginInfo] = useState({
@@ -30,6 +30,10 @@ const LoginScreen = ({ location, history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(loginInfo.email, loginInfo.password));
+  };
+
+  const googleOAuthHandler = () => {
+    dispatch(loginWithGoogle());
   };
 
   return (
@@ -66,6 +70,8 @@ const LoginScreen = ({ location, history }) => {
           Sign In
         </Button>
       </Form>
+
+      <Button onClick={googleOAuthHandler}>Login with Google</Button>
 
       <Row className="py-3">
         <Col>

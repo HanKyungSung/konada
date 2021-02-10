@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\GoogleOAuthController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +28,14 @@ Route::middleware('auth:api')->put('/user/update', [UserController::class, 'upda
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/user/profile/{userId}/show', [ProfileController::class, 'show']);
-Route::post('/user/profile/{userId}/edit', [ProfileController::class, 'edit']);
+Route::prefix('/user/profile/{userId}')->group(function() {
+  Route::post('/show', [ProfileController::class, 'show']);
+  Route::post('/edit', [ProfileController::class, 'edit']);
+});
+
+// Route::get('http://konada.ca/auth/google/callback',)
+
+Route::get('/user/login', [GoogleOAuthController::class, 'obtainOAuthToken']);
 
 Route::get('/transactions',[TransactionController::class, 'index']);
 Route::get('/transactions/{id}', [TransactionController::class, 'show']);

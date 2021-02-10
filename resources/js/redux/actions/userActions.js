@@ -3,13 +3,16 @@ import axios from 'axios';
 import { saveState, loadState } from '../../localStorage';
 
 import {
-  USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAIL,
+  USER_LOGIN_WITH_GOOGLE_REQUEST,
+  USER_LOGIN_WITH_GOOGLE_SUCCESS,
+  USER_LOGIN_WITH_GOOGLE_FAIL,
   USER_LOGOUT,
-  USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
   USERINFO_EDIT_REQUEST,
   USERINFO_EDIT_SUCCESS,
   USERINFO_EDIT_FAIL,
@@ -44,6 +47,36 @@ export const login = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const loginWithGoogle = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_LOGIN_WITH_GOOGLE_REQUEST,
+    });
+
+    const { data } = await axios
+      .get('/api/user/login')
+      .then(function (response) {
+        console.log(response);
+      });
+
+    // dispatch({
+    //   // TODO: shoule be with google or can i just use the origin login reducer?
+    //   type: USER_LOGIN_WITH_GOOGLE_SUCCESS,
+    //   payload: data,
+    // });
+
+    // TODO: save the token came from google into (state or localstorage).
+  } catch (error) {
+    dispatch({
+      type: USER_LOGIN_WITH_GOOGLE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
