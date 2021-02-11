@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Google_Client;
 use Google_Service_Drive;
 
+require_once '../vendor/autoload.php';
+
 class GoogleOAuthController extends Controller
 {
   public function obtainOAuthToken()
