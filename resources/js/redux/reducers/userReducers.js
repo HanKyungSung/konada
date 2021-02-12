@@ -35,8 +35,6 @@ export const userLoginReducer = (
 
 export const googleUserLoginReducer = (
   state = {
-    loading: null,
-    error: null,
     googleUserInfo: null,
     redirectURL: null,
   },
@@ -44,11 +42,11 @@ export const googleUserLoginReducer = (
 ) => {
   switch (action.type) {
     case GOOGLE_USER_LOGIN_REQUEST:
-      return { ...state, loading: true };
+      return { ...state };
     case GOOGLE_USER_LOGIN_SUCCESS:
-      return { ...state, loading: false, redirectURL: action.payload };
+      return { ...state, redirectURL: action.payload };
     case GOOGLE_USER_LOGIN_FAIL:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, error: action.payload };
     default:
       return state;
   }

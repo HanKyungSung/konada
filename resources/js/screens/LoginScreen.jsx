@@ -21,11 +21,24 @@ const LoginScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLoginReducer);
   const { loading, error, userInfo } = userLogin;
 
+  const googleUserLogin = useSelector((state) => state.googleUserLoginReducer);
+  const { googleUserInfo, redirectURL } = googleUserLogin;
+
+  let url = '';
+
   useEffect(() => {
     if (userInfo || loadState('userInfo')) {
       history.push('/');
     }
+
+    dispatch(loginWithGoogle());
   }, [history, userInfo, dispatch]);
+
+  useEffect(() => {
+    if (redirectURL) {
+      url = redirectURL;
+    }
+  }, [redirectURL]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -33,7 +46,9 @@ const LoginScreen = ({ history }) => {
   };
 
   const googleOAuthHandler = () => {
-    dispatch(loginWithGoogle());
+    if (url !== '') {
+      window.open(url);
+    }
   };
 
   return (
