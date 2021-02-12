@@ -2,6 +2,9 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  GOOGLE_USER_LOGIN_REQUEST,
+  GOOGLE_USER_LOGIN_SUCCESS,
+  GOOGLE_USER_LOGIN_FAIL,
   USER_LOGOUT,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
@@ -13,16 +16,39 @@ export const userLoginReducer = (
     loading: null,
     error: null,
     userInfo: null,
-  }, action) => {
+  },
+  action
+) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true };
     case USER_LOGIN_SUCCESS:
-      return { loading: false, userInfo: action.payload };
+      return { ...state, loading: false, userInfo: action.payload };
     case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     case USER_LOGOUT:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const googleUserLoginReducer = (
+  state = {
+    loading: null,
+    error: null,
+    googleUserInfo: null,
+    redirectURL: null,
+  },
+  action
+) => {
+  switch (action.type) {
+    case GOOGLE_USER_LOGIN_REQUEST:
+      return { ...state, loading: true };
+    case GOOGLE_USER_LOGIN_SUCCESS:
+      return { ...state, loading: false, redirectURL: action.payload };
+    case GOOGLE_USER_LOGIN_FAIL:
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
@@ -33,7 +59,9 @@ export const userRegisterReducer = (
     loading: null,
     error: null,
     userInfo: null,
-  }, action) => {
+  },
+  action
+) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return { loading: true };

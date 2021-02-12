@@ -10,7 +10,7 @@ import FormContainer from '../components/FormContainer';
 import { loadState } from '../localStorage';
 import { login, loginWithGoogle } from '../redux/actions/userActions';
 
-const LoginScreen = ({ location, history }) => {
+const LoginScreen = ({ history }) => {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',

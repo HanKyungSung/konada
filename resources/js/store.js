@@ -5,12 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { productListReducer } from './redux/reducers/productReducers';
 import {
   userLoginReducer,
+  googleUserLoginReducer,
   userRegisterReducer,
 } from './redux/reducers/userReducers';
 
 const reducer = combineReducers({
   productListReducer,
   userLoginReducer,
+  googleUserLoginReducer,
   userRegisterReducer,
 });
 
