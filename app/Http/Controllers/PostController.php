@@ -39,8 +39,9 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function creaetPost(Request $request)
     {
+        //TODO:HENDRIK: Seperate item create post and create product procedure
         $validatedData = $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
@@ -72,7 +73,7 @@ class PostController extends Controller
         return response($post);
     }
 
-    public function getPostsByCategory(Request $request)
+    public function getPostListByCategory(Request $request)
     {
         $posts = Post::where('category_id',$request->category)->with('category')->get();
 
@@ -85,37 +86,24 @@ class PostController extends Controller
         return response($post);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
+    public function deletePostById($postId)
     {
-        //
-    }
+        $res = Post::findOrFail($postId);
+        $res->bids()->delete();
+        $res->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Post $post)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Post $post)
-    {
-        //
+        if ($res){
+            $data=[
+            'status'=>200,
+            'msg'=>'delete post success'
+          ];
+          }else{
+            $data=[
+            'status'=>404,
+            'msg'=>'delete post failed'
+          ];
+          
+          return response()->json($data);
+        }
     }
 }
