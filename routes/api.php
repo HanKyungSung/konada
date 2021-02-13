@@ -36,8 +36,10 @@ Route::delete('/transactions/{id}',[TransactionController::class, 'destroy']);
 Route::post('/transactions',[TransactionController::class, 'store']);
 
 // Post
-Route::middleware('auth:api')->post('/post', [PostController::class, 'creaetPost']);
 // Route::middleware('auth:api')->get('/posts', [PostController::class, 'show']);
+// Route::middleware('auth:api')->post('/post', [PostController::class, 'creaetPost']);
+Route::post('/post', [PostController::class, 'creaetPost']);
+Route::put('/post/{id}', [PostController::class, 'updatePostById']);
 Route::get('/posts', [PostController::class, 'getPostListByCategory']);
 Route::get('/post/{id}', [PostController::class, 'getPostById']);
 Route::delete('/post/{id}', [PostController::class, 'deletePostById']);

@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Log;
 
 class PostController extends Controller
 {
@@ -33,49 +31,108 @@ class PostController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //TODO:HENDRIK: Seperate item create post and create product procedure
     public function creaetPost(Request $request)
     {
-        //TODO:HENDRIK: Seperate item create post and create product procedure
+        // $validatedData = $request->validate([
+        //     'title'       => 'required|string',
+        //     'description' => 'required|string',
+        //     // 'item_name' => 'required|string',
+        //     // 'price' => 'required|numeric',
+        //     // 'location' => 'required|string'
+        // ]);
+
+        // $post = DB::posts(function () use ($validatedData) {
+        //     $user = \Auth::user();
+
+        //     // $product = Product::create([
+        //     //     'name' => $validatedData['item_name'],
+        //     //     'price' => $validatedData['price']
+        //     // ]);
+
+        //     $post = Post::create([
+        //         'status'      => Post::STATUS_ACTIVE,
+        //         'title'       => $validatedData['title'],
+        //         'description' => $validatedData['description'],
+        //         'user_id'     => 1,
+        //         // 'user_id'     => $user->id,
+        //         // 'location' => $validatedData['location'],
+        //         // 'product_id' => $product->id,
+        //     ]);
+
+        //     return $post;
+        // });
+
+        // return response($post);
+
+        $user          = \Auth::user();
         $validatedData = $request->validate([
-            'title' => 'required|string',
+            'title'       => 'required|string',
             'description' => 'required|string',
-            'item_name' => 'required|string',
-            'price' => 'required|numeric',
-            'location' => 'required|string'
         ]);
 
-        $post = DB::transaction(function() use ($validatedData) {
-            $user = \Auth::user();
+        $res = DB::table('posts')
+            ->insert(
+                [
+                    'user_id' => 1,
+                    'category_id' => 1,
+                    'status' => 0,
+                    'title' => $validatedData['title'],
+                    'description' => $validatedData['description']
+                ]
+            );
 
-            $product = Product::create([
-                'name' => $validatedData['item_name'],
-                'price' => $validatedData['price']
-            ]);
+        if ($res) {
+            $data = [
+                'status' => 200,
+                'msg'    => 'create post success',
+            ];
+        } else {
+            $data = [
+                'status' => 404,
+                'msg'    => 'create post failed',
+            ];
+        }
+        return response()->json($data);
+    }
 
-            $post = Post::create([
-                'status' => Post::STATUS_ACTIVE,
-                'title' => $validatedData['title'],
-                'description' => $validatedData['description'],
-                'location' => $validatedData['location'],
-                'product_id' => $product->id,
-                'user_id' => $user->id
-            ]);
+    public function updatePostById(Request $request, $postId)
+    {
+        $user          = \Auth::user();
+        $validatedData = $request->validate([
+            'title'       => 'required|string',
+            'description' => 'required|string',
+        ]);
 
-            return $post;
-        });
+        $res = DB::table('posts')
+            // ->where('user_id', $user->id)
+            ->where('id', $postId)
+            ->update(
+                [
+                    'category_id' => 1,
+                    'status' => 0,
+                    'title' => $validatedData['title'],
+                    'description' => $validatedData['description']
+                ]
+            );
 
-        return response($post);
+        if ($res) {
+            $data = [
+                'status' => 200,
+                'msg'    => 'update post success',
+            ];
+        } else {
+            $data = [
+                'status' => 404,
+                'msg'    => 'update post failed',
+            ];
+        }
+        return response()->json($data);
     }
 
     public function getPostListByCategory(Request $request)
     {
-        $posts = Post::where('category_id',$request->category)->with('category')->get();
+        $posts = Post::where('category_id', $request->category)->with('category')->get();
 
         return response($posts);
     }
@@ -92,18 +149,17 @@ class PostController extends Controller
         $res->bids()->delete();
         $res->delete();
 
-        if ($res){
-            $data=[
-            'status'=>200,
-            'msg'=>'delete post success'
-          ];
-          }else{
-            $data=[
-            'status'=>404,
-            'msg'=>'delete post failed'
-          ];
-          
-          return response()->json($data);
+        if ($res) {
+            $data = [
+                'status' => 200,
+                'msg'    => 'delete post success',
+            ];
+        } else {
+            $data = [
+                'status' => 404,
+                'msg'    => 'delete post failed',
+            ];
         }
+        return response()->json($data);
     }
 }
