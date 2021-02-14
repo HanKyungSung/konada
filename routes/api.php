@@ -34,12 +34,7 @@ Route::prefix('/user/profile/{userId}')->group(function() {
 });
 
 Route::get('/user/login', [GoogleOAuthController::class, 'obtainOAuthToken']);
-
-Route::get('/auth/google/callback', function(Request $request) {
-  logger($request->all());
-  return $request->all();
-  // still testing.
-});
+Route::get('/auth/google/callback', [GoogleOAuthController::class, 'handleOAuthServerRes']);
 
 Route::get('/transactions',[TransactionController::class, 'index']);
 Route::get('/transactions/{id}', [TransactionController::class, 'show']);

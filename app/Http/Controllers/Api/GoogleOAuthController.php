@@ -20,7 +20,7 @@ class GoogleOAuthController extends Controller
 
     $client->setAuthConfig($path);
     $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
-    $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/auth/google/callback');
+    $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/api/auth/google/callback');
     
     // offline access will give you both an access and refresh token so that
     // your app can refresh the access token without user interaction.
@@ -36,5 +36,10 @@ class GoogleOAuthController extends Controller
     $auth_url = $client->createAuthUrl();
 
     return $auth_url;
+  }
+
+  public function handleOAuthServerRes(Request $request)
+  {
+    return $request->all();
   }
 }
