@@ -44,3 +44,6 @@ Route::get('/post/{id}', [PostController::class, 'getPostById']);
 Route::post('/post', [PostController::class, 'creaetPost']);
 Route::put('/post/{id}', [PostController::class, 'updatePostById']);
 Route::delete('/post/{id}', [PostController::class, 'deletePostById']);
+
+//Bid
+Route::POST('/post/bid', [PostController::class, 'createBid']);

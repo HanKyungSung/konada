@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -74,11 +75,12 @@ class PostController extends Controller
         $res = DB::table('posts')
             ->insert(
                 [
-                    'user_id' => 1,
-                    'category_id' => 1,
+                    'user_id' => 1, //TODO:HENDRIK change valid user Id
+                    'category_id' => 1, //TODO:HENDRIK change valid user Id
                     'status' => 0,
                     'title' => $validatedData['title'],
-                    'description' => $validatedData['description']
+                    'description' => $validatedData['description'],
+                    'created_at' => Carbon::now()
                 ]
             );
 
@@ -112,7 +114,8 @@ class PostController extends Controller
                     'category_id' => 1,
                     'status' => 0,
                     'title' => $validatedData['title'],
-                    'description' => $validatedData['description']
+                    'description' => $validatedData['description'],
+                    'updated_at' => Carbon::now()
                 ]
             );
 
@@ -158,6 +161,41 @@ class PostController extends Controller
             $data = [
                 'status' => 404,
                 'msg'    => 'delete post failed',
+            ];
+        }
+        return response()->json($data);
+    }
+
+    public function createBid(Request $request)
+    {
+        $user          = \Auth::user();
+        // $userId = $user->id;
+        // $postId = $request->postId;
+        $validatedData = $request->validate([
+            'content' => 'required|string',
+            'price' => 'required|numeric|between:0,99.99'
+        ]);
+
+        $res = DB::table('bids')
+            ->insert(
+                [
+                    'user_id' => 1, //TODO:HENDRIK change valid user Id
+                    'post_id' => 5, //TODO:HENDRIK change valid user Id
+                    'status' => 0,
+                    'content' => $validatedData['content'],
+                    'price' => $validatedData['price'],
+                    'created_at' => Carbon::now()
+                ]
+            );
+        if ($res) {
+            $data = [
+                'status' => 200,
+                'msg'    => 'create bid success',
+            ];
+        } else {
+            $data = [
+                'status' => 404,
+                'msg'    => 'create bid failed',
             ];
         }
         return response()->json($data);
