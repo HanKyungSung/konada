@@ -43,8 +43,8 @@ export const createProduct = (inputData) => {
 	return (dispatch, getState) => {
 		dispatch({ type: PRODUCT_CREATE_REQUEST });
 
-		const { userLogin } = getState();
-		const { token } = userLogin.userInfo;
+		const { userLoginReducer } = getState();
+		const { token } = userLoginReducer.userInfo;
 
 		return createProductApi(inputData, token).then(
 			(response) => {
@@ -71,8 +71,8 @@ export const deleteProduct = (productId) => {
 	return (dispatch, getState) => {
 		dispatch({ type: PRODUCT_DELETE_REQUEST });
 
-		const { userLogin } = getState();
-		const { token } = userLogin.userInfo;
+		const { userLoginReducer } = getState();
+		const { token } = userLoginReducer.userInfo;
 
 		return deleteProductApi(productId, token).then(
 			(response) => {

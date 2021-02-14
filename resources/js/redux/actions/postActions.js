@@ -14,8 +14,8 @@ export const createPost = (inputData) => {
     return (dispatch, getState) => {
         return dispatch(createProduct(inputData)).then(
         (product) => {
-            const { userLogin } = getState();
-            const { token } = userLogin.userInfo;
+            const { userLoginReducer } = getState();
+            const { token } = userLoginReducer.userInfo;
 
             dispatch({ type: POST_CREATE_REQUEST });
 
@@ -41,8 +41,8 @@ export const createPost = (inputData) => {
 
 export const fetchPosts = () => {
     return (dispatch, getState) => {
-        const { userLogin } = getState();
-        const { token } = userLogin.userInfo;
+        const { userLoginReducer } = getState();
+        const { token } = userLoginReducer.userInfo;
 
         dispatch({ type: POST_INDEX_REQUEST });
 

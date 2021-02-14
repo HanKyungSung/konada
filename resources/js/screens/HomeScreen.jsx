@@ -14,13 +14,12 @@ import { fetchPosts } from '../redux/actions/postActions';
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
   const postReducer = useSelector((state) => state.postReducer);
   const { loading, error, posts } = postReducer;
 
   const loggedinUserInfo = useSelector((state) => state.userLoginReducer);
   const { userInfo } = loggedinUserInfo;
-
+  
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
@@ -51,21 +50,6 @@ const HomeScreen = () => {
           ))}
         </Row>
       )}
-
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <p>Modal body text goes here.</p>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save changes</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
     </Container>
   );
 };

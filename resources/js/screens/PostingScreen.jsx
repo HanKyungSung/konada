@@ -12,7 +12,7 @@ const PostingScreen = (history) => {
   const [location, setLocation] = useState('');
   const [file, setFile] = useState(null);
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.userLogin.userInfo);
+  const userInfo = useSelector((state) => state.userLoginReducer.userInfo);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
