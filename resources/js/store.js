@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { productListReducer } from './redux/reducers/productReducers';
+import { postReducer } from './redux/reducers/postReducers';
 import { userLoginReducer, userRegisterReducer, loadUserInfoReducer } from './redux/reducers/userReducers';
 
 const reducer = combineReducers({
   productList: productListReducer,
+  postReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   loadUserInfoReducer,

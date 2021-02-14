@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
@@ -34,4 +35,15 @@ Route::get('/transactions/{id}', [TransactionController::class, 'show']);
 Route::put('/transactions/{id}',[TransactionController::class, 'update']);
 Route::delete('/transactions/{id}',[TransactionController::class, 'destroy']);
 Route::post('/transactions',[TransactionController::class, 'store']);
+
 Route::middleware('auth:api')->post('/post', [PostController::class, 'store']);
+
+Route::prefix('product')->middleware('auth:api')->group(function() {
+    Route::post('/', [ProductController::class, 'store']);
+    Route::delete('/', [ProductController::class, 'destroy']);
+});
+
+Route::prefix('post')->middleware('auth:api')->group(function() {
+    Route::get('/index', [PostController::class, 'index']);
+    Route::post('/', [PostController::class, 'store']);
+});

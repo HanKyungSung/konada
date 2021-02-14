@@ -25,4 +25,9 @@ class Post extends Model
     {
         return $this->hasOne('App\Models\Product', 'id', 'product_id');
     }
+
+    public function uploaded_files()
+    {
+        return $this->hasMany('App\Models\UploadedFile');
+    }
 }

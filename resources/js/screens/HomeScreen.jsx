@@ -4,18 +4,17 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import Loader from '../components/utilities/Loader';
 import Message from '../components/utilities/Message';
-import Product from '../components/Product';
-
-import { listProducts } from '../redux/actions/productActions';
+import Post from '../components/Post';
+import { fetchPosts } from '../redux/actions/postActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const postReducer = useSelector((state) => state.postReducer);
+  const { loading, error, posts } = postReducer;
 
   useEffect(() => {
-    dispatch(listProducts());
+    dispatch(fetchPosts());
   }, [dispatch]);
 
   return (
@@ -36,8 +35,8 @@ const HomeScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <Row>
-          {products.map((product) => (
-            <Product key={product._id} product={product} />
+          {posts.map((post) => (
+            <Post key={post.id} post={post} />
           ))}
         </Row>
       )}
