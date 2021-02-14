@@ -47,3 +47,4 @@ Route::delete('/post/{id}', [PostController::class, 'deletePostById']);
 
 //Bid
 Route::POST('/post/bid', [PostController::class, 'createBid']);
+Route::PUT('/post/bid/{id}', [PostController::class, 'updateBidById']);

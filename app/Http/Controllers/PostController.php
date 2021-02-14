@@ -200,4 +200,40 @@ class PostController extends Controller
         }
         return response()->json($data);
     }
+
+    public function updateBidById(Request $request, $bidId)
+    {
+        $user          = \Auth::user();
+        // $userId = $user->id;
+        // $postId = $request->postId;
+        $validatedData = $request->validate([
+            'content' => 'required|string',
+            'price' => 'required|numeric|between:0,999.99'
+        ]);
+
+        $res = DB::table('bids')
+            ->where('id', $bidId)
+            ->update(
+                [
+                    'user_id' => 1, //TODO:HENDRIK change valid user Id
+                    'post_id' => 5, //TODO:HENDRIK change valid user Id
+                    'status' => 0,
+                    'content' => $validatedData['content'],
+                    'price' => $validatedData['price'],
+                    'updated_at' => Carbon::now()
+                ]
+            );
+        if ($res) {
+            $data = [
+                'status' => 200,
+                'msg'    => 'update bid success',
+            ];
+        } else {
+            $data = [
+                'status' => 404,
+                'msg'    => 'update bid failed',
+            ];
+        }
+        return response()->json($data);
+    }
 }
