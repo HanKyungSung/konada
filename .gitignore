@@ -27,3 +27,4 @@ public/css/app.css
 
 # Added for Google OAuth.
 storage/oauth
+public/files

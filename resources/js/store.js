@@ -8,12 +8,14 @@ import {
   googleUserLoginReducer,
   userRegisterReducer,
 } from './redux/reducers/userReducers';
+import { postReducer } from './redux/reducers/postReducers';
 
 const reducer = combineReducers({
   productListReducer,
   userLoginReducer,
   googleUserLoginReducer,
   userRegisterReducer,
+  postReducer,
 });
 
 const initialState = {};

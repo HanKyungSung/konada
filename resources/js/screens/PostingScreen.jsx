@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { createProduct } from '../redux/actions/productActions';
+import { createPost } from '../redux/actions/postActions';
 
 const PostingScreen = (history) => {
   const [validated, setValidated] = useState(false);
@@ -11,8 +10,9 @@ const PostingScreen = (history) => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
+  const [file, setFile] = useState(null);
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.userLogin.userInfo);
+  const userInfo = useSelector((state) => state.userLoginReducer.userInfo);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -29,9 +29,10 @@ const PostingScreen = (history) => {
         description: description,
         item_name: itemName,
         location: location,
+        file: file
       };
 
-      dispatch(createProduct(data, token));
+      dispatch(createPost(data));
       history.history.push('/');
     }
 
@@ -93,6 +94,9 @@ const PostingScreen = (history) => {
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Location..."
           />
+        </Form.Group>
+        <Form.Group>
+          <Form.File onChange={(e) => setFile(e.target.files)} id="product_picture" label="Picture of the Product" />
         </Form.Group>
         <Button variant="primary" type="submit">
           Submit

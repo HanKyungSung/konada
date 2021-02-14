@@ -8,18 +8,20 @@ import Product from '../components/Product';
 import LoginFeedback from '../components/LoginFeedback';
 
 import { listProducts } from '../redux/actions/productActions';
+import Post from '../components/Post';
+import { fetchPosts } from '../redux/actions/postActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productListReducer);
-  const { loading, error, products } = productList;
+  const postReducer = useSelector((state) => state.postReducer);
+  const { loading, error, posts } = postReducer;
 
   const loggedinUserInfo = useSelector((state) => state.userLoginReducer);
   const { userInfo } = loggedinUserInfo;
-
+  
   useEffect(() => {
-    dispatch(listProducts());
+    dispatch(fetchPosts());
   }, [dispatch]);
 
   return (
@@ -43,26 +45,11 @@ const HomeScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <Row>
-          {products.map((product) => (
-            <Product key={product._id} product={product} />
+          {posts.map((post) => (
+            <Post key={post.id} post={post} />
           ))}
         </Row>
       )}
-
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <p>Modal body text goes here.</p>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save changes</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
     </Container>
   );
 };
