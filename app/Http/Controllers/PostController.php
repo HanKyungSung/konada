@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Product;
+use Illuminate\Http\File;
+use App\Models\UploadedFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -16,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::get();
+        $posts = Post::with(['product', 'uploaded_files:post_id,path'])->orderBy('id', 'desc')->get();
 
         return response($posts);
     }
@@ -29,6 +33,56 @@ class PostController extends Controller
     public function create()
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // push with out file upload.
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'product_id' => 'required|exists:products,id',
+            'location' => 'required|string'
+        ]);
+
+        $post = DB::transaction(function () use ($request, $validatedData){
+
+            $user = \Auth::user();
+
+            $post = Post::create([
+                'status' => Post::STATUS_ACTIVE,
+                'title' => $validatedData['title'],
+                'description' => $validatedData['description'],
+                'location' => $validatedData['location'],
+                'product_id' => $validatedData['product_id'],
+                'user_id' => $user->id
+            ]);
+
+            $path = $request->file('file')->store('files', ['disk' => 'public_uploads']);
+            $originalFileName = $request->file('file')->getClientOriginalName();
+
+            $uploadedFile = UploadedFile::create([
+                'user_id' => $user->id,
+                'post_id' => $post->id,
+                'product_id' => $validatedData['product_id'],
+                'path' => $path,
+                'original_name' => $originalFileName
+            ]);
+
+            return $post;
+        });
+
+        // eager load
+        $post->product;
+        $post->uploaded_files;
+
+        return response($post);
     }
 
     //TODO:HENDRIK: Seperate item create post and create product procedure

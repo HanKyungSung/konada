@@ -35,4 +35,9 @@ class Post extends Model
     {
         return $this->hasMany(Bid::class);
     }
+    
+    public function uploaded_files()
+    {
+        return $this->hasMany('App\Models\UploadedFile');
+    }
 }

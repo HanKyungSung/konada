@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GoogleOAuthController;
 use App\Http\Controllers\TransactionController;
@@ -47,6 +48,17 @@ Route::post('/transactions',[TransactionController::class, 'store']);
 // Route::middleware('auth:api')->post('/post', [PostController::class, 'creaetPost']);
 Route::get('/posts', [PostController::class, 'getPostListByCategory']);
 Route::get('/post/{id}', [PostController::class, 'getPostById']);
-Route::post('/post', [PostController::class, 'creaetPost']);
+// Route::post('/post', [PostController::class, 'creaetPost']);
 Route::put('/post/{id}', [PostController::class, 'updatePostById']);
 Route::delete('/post/{id}', [PostController::class, 'deletePostById']);
+// Route::middleware('auth:api')->post('/post', [PostController::class, 'store']);
+
+Route::prefix('product')->middleware('auth:api')->group(function() {
+    Route::post('/', [ProductController::class, 'store']);
+    Route::delete('/', [ProductController::class, 'destroy']);
+});
+
+Route::prefix('post')->middleware('auth:api')->group(function() {
+    Route::get('/index', [PostController::class, 'index']);
+    Route::post('/', [PostController::class, 'store']);
+});

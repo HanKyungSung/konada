@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\file;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class FileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,26 +35,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'item_name' => 'required|string',
-            'price' => 'required|numeric',
-        ]);
-
-        $product = Product::create([
-            'name' => $validatedData['item_name'],
-            'price' => $validatedData['price']
-        ]);
-
-        return $product;
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\file  $file
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(file $file)
     {
         //
     }
@@ -62,10 +52,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\file  $file
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(file $file)
     {
         //
     }
@@ -74,10 +64,10 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\file  $file
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, file $file)
     {
         //
     }
@@ -85,20 +75,11 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\file  $file
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Product $product)
+    public function destroy(file $file)
     {
-        $validatedData = $request->validate([
-            'product_id' => 'required|exists:products,id'
-        ]);
-
-        $productId = $validatedData['product_id'];
-
-        $product = Product::find($productId);
-        $product->delete();
-
-        return $productId;
+        //
     }
 }
