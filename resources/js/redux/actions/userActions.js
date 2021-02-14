@@ -3,13 +3,16 @@ import axios from 'axios';
 import { saveState, loadState } from '../../localStorage';
 
 import {
-  USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAIL,
+  GOOGLE_USER_LOGIN_REQUEST,
+  GOOGLE_USER_LOGIN_SUCCESS,
+  GOOGLE_USER_LOGIN_FAIL,
   USER_LOGOUT,
-  USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
   USERINFO_EDIT_REQUEST,
   USERINFO_EDIT_SUCCESS,
   USERINFO_EDIT_FAIL,
@@ -33,14 +36,12 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
-    // saveState(data);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
 
     saveState('userInfo', data);
-    // localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -52,9 +53,33 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
+export const loginWithGoogle = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: GOOGLE_USER_LOGIN_REQUEST,
+    });
+
+    const { data } = await axios.get('/api/user/login');
+
+    dispatch({
+      type: GOOGLE_USER_LOGIN_SUCCESS,
+      payload: data,
+    });
+
+    // TODO: save the token came from google into (state or localstorage).
+  } catch (error) {
+    dispatch({
+      type: GOOGLE_USER_LOGIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
-  // localStorage.removeItem('state');
 
   dispatch({ type: USER_LOGOUT });
   document.location.href = '/login';
@@ -114,8 +139,6 @@ export const register = (
     });
 
     saveState('userInfo', data);
-
-    // localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
@@ -151,7 +174,6 @@ export const editUserInfo = (newUserInfo) => async (dispatch, getState) => {
     // TODO: need to change the name of constant. combine login and edit.
 
     saveState('userInfo', response.data);
-    // localStorage.setItem('uesrInfo', JSON.stringify(data));
   } catch (error) {
     const message =
       error.response && error.response.data.message

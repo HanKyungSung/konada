@@ -8,9 +8,9 @@ import Loader from '../components/utilities/Loader';
 import FormContainer from '../components/FormContainer';
 
 import { loadState } from '../localStorage';
-import { login } from '../redux/actions/userActions';
+import { login, loginWithGoogle } from '../redux/actions/userActions';
 
-const LoginScreen = ({ location, history }) => {
+const LoginScreen = ({ history }) => {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -21,15 +21,34 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLoginReducer);
   const { loading, error, userInfo } = userLogin;
 
+  const googleUserLogin = useSelector((state) => state.googleUserLoginReducer);
+  const { googleUserInfo, redirectURL } = googleUserLogin;
+
+  let url = '';
+
   useEffect(() => {
     if (userInfo || loadState('userInfo')) {
       history.push('/');
     }
+
+    dispatch(loginWithGoogle());
   }, [history, userInfo, dispatch]);
+
+  useEffect(() => {
+    if (redirectURL) {
+      url = redirectURL;
+    }
+  }, [redirectURL]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(loginInfo.email, loginInfo.password));
+  };
+
+  const googleOAuthHandler = () => {
+    if (url !== '') {
+      window.open(url);
+    }
   };
 
   return (
@@ -66,6 +85,8 @@ const LoginScreen = ({ location, history }) => {
           Sign In
         </Button>
       </Form>
+
+      <Button onClick={googleOAuthHandler}>Login with Google</Button>
 
       <Row className="py-3">
         <Col>

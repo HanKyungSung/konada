@@ -24,3 +24,6 @@ Homestead.json
 .phpunit.result.cach
 .DS_Store
 public/css/app.css
+
+# Added for Google OAuth.
+storage/oauth
