@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 
-import { SHOWED_MODAL } from '../redux/constants/userConstants';
+import { saveState, loadState } from '../localStorage';
 
 const LoginFeedback = () => {
-  const dispatch = useDispatch();
-
   const [show, setShow] = useState(false);
 
   const loggedinUserInfo = useSelector((state) => state.userLoginReducer);
-  const { userInfo, showedModal } = loggedinUserInfo;
+  const { userInfo } = loggedinUserInfo;
+
+  const displayModal = loadState('displayModal');
 
   const handleClose = () => {
     setShow(false);
-    dispatch({ type: SHOWED_MODAL });
+    saveState('displayModal', true);
   };
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    if (showedModal === false) {
+    if (displayModal !== true) {
       handleShow();
     }
   }, []);
