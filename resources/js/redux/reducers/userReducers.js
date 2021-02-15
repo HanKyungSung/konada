@@ -13,19 +13,19 @@ import {
 
 export const userLoginReducer = (
   state = {
-    loading: null,
-    error: null,
+    loading_login: null,
+    error_login: null,
     userInfo: null,
   },
   action
 ) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading_login: true };
     case USER_LOGIN_SUCCESS:
-      return { ...state, loading: false, userInfo: action.payload };
+      return { ...state, loading_login: false, userInfo: action.payload };
     case USER_LOGIN_FAIL:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading_login: false, error_login: action.payload };
     case USER_LOGOUT:
       return {};
     default:

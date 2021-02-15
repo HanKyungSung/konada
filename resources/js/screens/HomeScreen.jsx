@@ -4,11 +4,9 @@ import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 
 import Loader from '../components/utilities/Loader';
 import Message from '../components/utilities/Message';
-import Product from '../components/Product';
 import LoginFeedback from '../components/LoginFeedback';
-
-import { listProducts } from '../redux/actions/productActions';
 import Post from '../components/Post';
+
 import { fetchPosts } from '../redux/actions/postActions';
 
 const HomeScreen = () => {
@@ -18,10 +16,13 @@ const HomeScreen = () => {
   const { loading, error, posts } = postReducer;
 
   const loggedinUserInfo = useSelector((state) => state.userLoginReducer);
-  const { userInfo } = loggedinUserInfo;
-  
+  const { loading_login, error_login, userInfo } = loggedinUserInfo;
+
   useEffect(() => {
-    dispatch(fetchPosts());
+    if (userInfo) {
+      dispatch(fetchPosts());
+    }
+    
   }, [dispatch]);
 
   return (
@@ -39,10 +40,10 @@ const HomeScreen = () => {
           </Button>
         </Col>
       </Row>
-      {loading ? (
+      {loading_login ? (
         <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
+      ) : error_login ? (
+        <Message variant="danger">{error_login}</Message>
       ) : (
         <Row>
           {posts.map((post) => (
