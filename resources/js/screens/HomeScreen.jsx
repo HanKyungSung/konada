@@ -22,12 +22,10 @@ const HomeScreen = () => {
     if (userInfo) {
       dispatch(fetchPosts());
     }
-    
   }, [dispatch]);
 
   return (
     <Container>
-      {/* TODO: modal should pop up only when an user just entered their credential and redirected to this screeen. */}
       {userInfo ? <LoginFeedback /> : ''}
 
       <Row>

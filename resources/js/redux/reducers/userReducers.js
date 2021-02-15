@@ -2,6 +2,7 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  SHOWED_MODAL,
   GOOGLE_USER_LOGIN_REQUEST,
   GOOGLE_USER_LOGIN_SUCCESS,
   GOOGLE_USER_LOGIN_FAIL,
@@ -16,6 +17,7 @@ export const userLoginReducer = (
     loading_login: null,
     error_login: null,
     userInfo: null,
+    showedModal: false,
   },
   action
 ) => {
@@ -28,6 +30,8 @@ export const userLoginReducer = (
       return { ...state, loading_login: false, error_login: action.payload };
     case USER_LOGOUT:
       return {};
+    case SHOWED_MODAL:
+      return { ...state, showedModal: true };
     default:
       return state;
   }
