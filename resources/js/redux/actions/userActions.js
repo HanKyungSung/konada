@@ -42,6 +42,7 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     saveState('userInfo', data);
+    saveState('displayModal', false);
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
