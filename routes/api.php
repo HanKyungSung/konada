@@ -34,6 +34,11 @@ Route::prefix('/user/profile/{userId}')->group(function() {
   Route::post('/edit', [ProfileController::class, 'edit']);
 });
 
+Route::prefix('bids')->group(function() {
+  Route::get('/', [BidController::class, 'index']);
+  Route::post('/store', [BidController::class, 'store']);  
+});
+
 Route::get('/user/login', [GoogleOAuthController::class, 'obtainOAuthToken']);
 Route::get('/auth/google/callback', [GoogleOAuthController::class, 'handleOAuthServerRes']);
 
