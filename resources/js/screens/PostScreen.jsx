@@ -1,11 +1,28 @@
-import React, { Fragment }from 'react';
+import React, { Fragment, useState, useEffect }from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Row, Col, Image, ListGroup, Card } from 'react-bootstrap';
+import { useDispatch,useSelector } from 'react-redux';
+import { Row, Col, Image, ListGroup, Card, Form, Button } from 'react-bootstrap';
 
 const PostScreen = ({ match }) => {
+    const [bid, setBid] = useState({
+        content: '',
+        price: '',
+    })
+
+    const dispatch = useDispatch();
+
     const posts = useSelector((state) => state.postReducer.posts);
     const post = posts.find((post) => post.id == match.params.id);
+
+    const bidReducer = useSelector((state) => state.loadBidsReducer);
+    const { loading_bid, error_bid, bids } = bidReducer;
+
+    useEffect(() => {}, []);
+
+    const storeBidHandler = (e) => {
+        e.preventDefault();
+        dispatch(storeBid(bid));
+    }
 
     return (
         <Fragment>
@@ -46,6 +63,36 @@ const PostScreen = ({ match }) => {
                         </ListGroup>
                     </Card>
                 </Col>
+            </Row>
+            <Row>
+                <Row>
+                    <h3>Comment section</h3>
+                    {bids.map(bid => (
+                        <Bid key={bid.id} bid={bid} />
+                    ))}
+                </Row>
+                <Row>
+                    <Form onSubmit={storeBidHandler}>
+                        <Form.Group controlId='content'>
+                            <Form.Label>Comment</Form.Label>
+                            <Form.Control
+                                value={bid.content}
+                                onChange={(e) => setBid({ ...bid, content: e.target.value })}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId='price'>
+                            <Form.Label>Price</Form.Label>
+                            <Form.Control
+                                value={bid.price}
+                                onChange={(e) => setBid({ ...bid, price: e.target.value })}
+                            />
+                        </Form.Group>
+                        <Button type="submit" variant="primary" className="btn-dark">
+                            Submit
+                        </Button>
+                    </Form>
+                </Row>
+
             </Row>
         </Fragment>
     );
