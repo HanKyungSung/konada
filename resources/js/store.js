@@ -9,6 +9,7 @@ import {
   userRegisterReducer,
 } from './redux/reducers/userReducers';
 import { postReducer } from './redux/reducers/postReducers';
+import { loadBidsReducer } from './redux/reducers/bidReducers';
 
 const reducer = combineReducers({
   productListReducer,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   googleUserLoginReducer,
   userRegisterReducer,
   postReducer,
+  loadBidsReducer,
 });
 
 const initialState = {};
