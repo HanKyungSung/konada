@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bid;
+use Illuminate\Support\Facades\DB;
+
+use Carbon\Carbon;
 
 class BidController extends Controller
 {
@@ -13,7 +17,9 @@ class BidController extends Controller
      */
     public function index()
     {
-        //
+        $bids = DB::table('bids')->select('*')->get();
+
+        return $bids;
     }
 
     /**
@@ -34,7 +40,25 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = \Auth::user();
+        // \Auth::user() needs a token coming from FE.
+
+        $validatedData = $request->validate([
+            'content' => 'required | string',
+            'price' => 'required | numeric',
+        ]);
+
+        $bid = Bid::create([
+            'status' => Bid::STATUS_OPEN,
+            'user_id' => $user->id,
+            'written_on' => Carbon::now()->toDateTimeString(),
+            'content' => $validatedData['content'],
+            'price' => $validatedData['price'],
+            'post_id' => '1',
+            // post_id should come from FE.
+        ]);
+
+        return $bid;
     }
 
     /**

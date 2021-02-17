@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import { Row, Col, Image, ListGroup, Card, Form, Button } from 'react-bootstrap';
 
+import Loader from '../components/utilities/Loader';
+import Message from '../components/utilities/Message';
+import Bid from '../components/Bid';
+
+import {loadBids, storeBid} from '../redux/actions/bidActions';
+
 const PostScreen = ({ match }) => {
     const [bid, setBid] = useState({
         content: '',
@@ -17,7 +23,9 @@ const PostScreen = ({ match }) => {
     const bidReducer = useSelector((state) => state.loadBidsReducer);
     const { loading_bid, error_bid, bids } = bidReducer;
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+		dispatch(loadBids());
+	}, []);
 
     const storeBidHandler = (e) => {
         e.preventDefault();
@@ -66,10 +74,18 @@ const PostScreen = ({ match }) => {
             </Row>
             <Row>
                 <Row>
-                    <h3>Comment section</h3>
-                    {bids.map(bid => (
-                        <Bid key={bid.id} bid={bid} />
-                    ))}
+					<h3>Comment section</h3>
+					{loading_bid ? (
+						<Loader />
+					) : error_bid ? (
+						<Message variant="danger">{error_login}</Message>
+					) : (
+						<Row>
+							{bids.map(bid => (
+								<Bid key={bid.id} bid={bid} />
+							))}
+						</Row>
+					)}
                 </Row>
                 <Row>
                     <Form onSubmit={storeBidHandler}>

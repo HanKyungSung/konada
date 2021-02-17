@@ -18,6 +18,7 @@ class Bid extends Model
      * @var array
      */
     protected $fillable = ['status', 'user_id', 'written_on', 'content', 'price', 'post_id'];
+    // protected $guarded = [];
 
     public function post(){
         return $this->belongsTo(Post::class);

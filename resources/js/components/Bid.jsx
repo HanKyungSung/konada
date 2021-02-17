@@ -1,6 +1,6 @@
 import { Card, Button } from 'react-bootstrap';
 
-const Bid = () => {
+const Bid = ({ bid }) => {
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Body>
