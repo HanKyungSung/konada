@@ -2,9 +2,6 @@ import { useSelector } from 'react-redux';
 import { Row, Card, Button } from 'react-bootstrap';
 
 const Bid = ({ bid }) => {
-  const userLoginReducer = useSelector((state) => state.userLoginReducer);
-  console.log(bid);
-
   return (
     <Row>
       <Card style={{ width: '18rem' }}>
