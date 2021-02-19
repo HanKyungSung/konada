@@ -1,16 +1,19 @@
-import { Card, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { Row, Card, Button } from 'react-bootstrap';
 
 const Bid = ({ bid }) => {
+  const userLoginReducer = useSelector((state) => state.userLoginReducer);
+  console.log(bid);
+
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-      </Card.Body>
-    </Card>
+    <Row>
+      <Card style={{ width: '18rem' }}>
+        <Card.Body>
+          <Card.Title>User Id: {bid.user_id}</Card.Title>
+          <Card.Text>Content: {bid.content}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Row>
   );
 };
 

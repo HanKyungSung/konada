@@ -35,10 +35,12 @@ Route::prefix('/user/profile/{userId}')->group(function() {
   Route::post('/edit', [ProfileController::class, 'edit']);
 });
 
-Route::prefix('bids')->group(function() {
-  Route::get('/', [BidController::class, 'index']);
+
+Route::prefix('bids')->middleware('auth:api')->group(function() {
+  // Route::get('/', [BidController::class, 'index']);
   Route::post('/store', [BidController::class, 'store']);  
 });
+Route::get('/bids', [BidController::class, 'index']);
 
 Route::get('/user/login', [GoogleOAuthController::class, 'obtainOAuthToken']);
 Route::get('/auth/google/callback', [GoogleOAuthController::class, 'handleOAuthServerRes']);
@@ -64,7 +66,9 @@ Route::prefix('product')->middleware('auth:api')->group(function() {
     Route::delete('/', [ProductController::class, 'destroy']);
 });
 
+
 Route::prefix('post')->middleware('auth:api')->group(function() {
-    Route::get('/index', [PostController::class, 'index']);
+    // Route::get('/index', [PostController::class, 'index']);
     Route::post('/', [PostController::class, 'store']);
 });
+Route::get('/post/index', [PostController::class, 'index']);
