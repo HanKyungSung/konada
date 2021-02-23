@@ -38,7 +38,8 @@ Route::prefix('/user/profile/{userId}')->group(function() {
 
 Route::prefix('bids')->middleware('auth:api')->group(function() {
   // Route::get('/', [BidController::class, 'index']);
-  Route::post('/store', [BidController::class, 'store']);  
+  Route::post('/store', [BidController::class, 'store']);
+  Route::post('/destroy', [BidController::class, 'destroy']);
 });
 Route::get('/bids', [BidController::class, 'index']);
 

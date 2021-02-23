@@ -101,8 +101,9 @@ class BidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
+    // public function destroy($id)
     {
-        //
+        $bid = Bid::findOrFail($request->bidId)->delete();
     }
 }
