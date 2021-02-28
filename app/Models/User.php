@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Post');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
+    }
 }
