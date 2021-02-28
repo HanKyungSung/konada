@@ -19,9 +19,7 @@ const HomeScreen = () => {
   const { loading_login, error_login, userInfo } = loggedinUserInfo;
 
   useEffect(() => {
-    if (userInfo) {
-      dispatch(fetchPosts());
-    }
+    dispatch(fetchPosts());
   }, [dispatch]);
 
   return (

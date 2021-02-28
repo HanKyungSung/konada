@@ -68,23 +68,22 @@ export const deletePost = (postId) => {
 };
 
 export const fetchPosts = () => {
-    return (dispatch, getState) => {
-        const { userLoginReducer } = getState();
-        const { token } = userLoginReducer.userInfo;
+  return (dispatch, getState) => {
+    const { userLoginReducer } = getState();
 
-        dispatch({ type: POST_INDEX_REQUEST });
+    dispatch({ type: POST_INDEX_REQUEST });
 
-        return fetchPostsApi(token).then(
-            (response) => {
-                const { data } = response;
+    return fetchPostsApi().then(
+      (response) => {
+        const { data } = response;
 
-                dispatch({ type: POST_INDEX_SUCCESS, payload: data });
-            },
-            (error) => {
-                dispatch({ type: POST_INDEX_FAIL, payload: error.message });
-            }
-        );
-    };
+        dispatch({ type: POST_INDEX_SUCCESS, payload: data });
+      },
+      (error) => {
+        dispatch({ type: POST_INDEX_FAIL, payload: error.message });
+      }
+    );
+  };
 };
 
 // Perhaps we can move below api methods to somewhere else.
@@ -106,16 +105,12 @@ export const createPostApi = (
     formData.append('location', location);
     // formData.append('file', file[0]);
 
-    return axios.post(
-        'api/post',
-        formData,
-        {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${token}`,
-            }
-        }
-    );
+  return axios.post('api/post', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const fetchPostsApi = (token) => {

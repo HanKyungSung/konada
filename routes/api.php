@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GoogleOAuthController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\BidController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,14 @@ Route::prefix('/user/profile/{userId}')->group(function() {
   Route::post('/edit', [ProfileController::class, 'edit']);
 });
 
+
+Route::prefix('bids')->middleware('auth:api')->group(function() {
+  // Route::get('/', [BidController::class, 'index']);
+  Route::post('/store', [BidController::class, 'store']);
+  Route::post('/destroy', [BidController::class, 'destroy']);
+});
+Route::get('/bids', [BidController::class, 'index']);
+
 Route::get('/user/login', [GoogleOAuthController::class, 'obtainOAuthToken']);
 Route::get('/auth/google/callback', [GoogleOAuthController::class, 'handleOAuthServerRes']);
 
@@ -58,8 +67,10 @@ Route::prefix('product')->middleware('auth:api')->group(function() {
     Route::delete('/', [ProductController::class, 'destroy']);
 });
 
+
 Route::prefix('post')->middleware('auth:api')->group(function() {
-    Route::get('/index', [PostController::class, 'index']);
+    // Route::get('/index', [PostController::class, 'index']);
     Route::post('/', [PostController::class, 'store']);
     Route::delete('/', [PostController::class, 'destroy']);
 });
+Route::get('/post/index', [PostController::class, 'index']);

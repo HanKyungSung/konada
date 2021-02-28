@@ -15,13 +15,12 @@ class CreateBidsTable extends Migration
     {
         Schema::create('bids', function (Blueprint $table) {
             $table->id();
+            $table->string('status');
+            $table->foreignId('user_id');
+            $table->date('written_on');
             $table->string('content');
-            $table->boolean('status');
             $table->decimal('price', 10, 2);
-
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('post_id')->constrained('posts');
-
+            $table->foreignId('post_id');
             $table->timestamps();
         });
     }
