@@ -7,114 +7,77 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Resources\TransactionResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (
+                $request
+                ->user()
+                ->unique_id == $request->route('transaction')
+                ->user_id
+            ) {
+                return $next($request);
+            } else {
+                return response("Not Authorized", 419);
+            }
+        });
+    }
+
     public function index()
     {
-        // $transcations = Transaction::paginate(15);
+        $user_id = Auth::user()->unique_id;
+        $transcations = Transaction::where('user_id', $user_id)
+                        ->join('bids', 'transactions.bid_id', '=', 'bids.id')
+                        ->join('posts', 'bids.post_id', '=', 'posts.id')
+                        ->select('*', 'bids.user_id as buyer_id')
+                        //TODO:get seller_id from post.user_id
+                        ->paginate(15)
+                        ->get();
 
-        // return TransactionResource::collection($transcations);
-
-        $transcations = DB::table('transactions')
-                            ->join('bids', 'transactions.bid_id', '=', 'bids.id')
-                            ->join('posts', 'bids.post_id', '=', 'posts.id')
-                            ->select('*', 'bids.user_id as buyer_id')
-                            //TODO:get seller_id from post.user_id
-                            ->get();
-
-        return response()->json($transcations);
+        return response()->json(['status' => 200, 'message'=>'request successfully processed', 'data' => $transcations]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(Request $request, Transaction $transaction)
     {
-        //
-    }
+        // $transcation = $request->isMethod('post')
+        //     ? Transaction::findOrFail($request->id) : new Transaction;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+        $transaction->bid_id = $request->input('bid_id');
+        $transaction->status = 1;
 
-        $transcation = $request->isMethod('put')
-            ? Transaction::findOrFail($request->id) : new Transaction;
-
-        $transcation->bid_id = $request->input('bid_id');
-        $transcation->status = 1;
-
-        if ($transcation->save()) {
-            return new TransactionResource($transcation);
+        if ($transaction->save()) {
+            return new TransactionResource($transaction);
         }
         //TODO: Exception handling the result of gettng data from DB 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+  
+    public function getTransactionDetail(Request $request, Transaction $transaction)
     {
-        $transcation = Transaction::findOrFail($id);
+        $user_id = Auth::user()->unique_id;
+        $result = $transaction::where($request->id)->user($user_id);
 
-        if ($transcation->delete()) {
-            return new TransactionResource($transcation);
-        }
-        //TODO: Exception handling reguarding to the result of storing data in DB 
+        return response()->json(['status' => 200, 'message'=>'request successfully processed', 'data' => $result]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        // TODO:HENDRIK: Need to discuss about updating contents. Notice to buyer / get agreement by buyer etc
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function deleteTransaction($id)
     {
         $transcation = Transaction::findOrFail($id);
         if ($transcation->delete()) {
-            return new TransactionResource($transcation);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Transaction deleted'
+            ]);
         }
-
-        //TODO: Exception handling reguarding to the result of storing data in DB 
     }
 }
