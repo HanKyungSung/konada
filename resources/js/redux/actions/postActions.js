@@ -5,37 +5,65 @@ import {
     POST_CREATE_FAIL,
     POST_INDEX_REQUEST,
     POST_INDEX_SUCCESS,
-    POST_INDEX_FAIL
+    POST_INDEX_FAIL,
+    POST_DELETE_REQUEST,
+    POST_DELETE_SUCCESS,
+    POST_DELETE_FAIL,
+    PRODUCT_STORE_REQUEST,
+    PRODUCT_STORE_SUCCESS,
+    PRODUCT_STORE_FAIL
 } from '../constants/postConstants';
 import { createProduct, deleteProduct } from '../actions/productActions';
 
 export const createPost = (inputData) => {
-    // Redux-Thunk below.
     return (dispatch, getState) => {
-        return dispatch(createProduct(inputData)).then(
-        (product) => {
-            const { userLoginReducer } = getState();
-            const { token } = userLoginReducer.userInfo;
+        const { userLoginReducer } = getState();
+        const { token } = userLoginReducer.userInfo;
 
-            dispatch({ type: POST_CREATE_REQUEST });
+        dispatch({ type: POST_CREATE_REQUEST });
 
-            return createPostApi(inputData, product.id, token).then(
-                (response) => {
-                    const { data } = response;
+        return createPostApi(inputData, token).then(
+            response => {
+                const { data } = response;
+                const post = data;
 
-                    dispatch({ type: POST_CREATE_SUCCESS, payload: data });
-                },
-                (error) => {
-                    // Should send the delete api to delete product
-                    // TODO: I am not sure what to do with the error.
-                    dispatch({ type: POST_CREATE_FAIL, payload: error.message });
-                    return dispatch(deleteProduct(product.id));
-                }
-            );
-        },
-        (error) => {
-            dispatch({ type: POST_CREATE_FAIL, payload: error.message });
-        });
+                dispatch({ type: POST_CREATE_SUCCESS, payload: post });
+
+                return dispatch(createProduct(inputData, post.id)).then(
+                    response => {
+                        dispatch({ type: PRODUCT_STORE_SUCCESS, payload: { product: response } });
+                    },
+                    error => {
+                        dispatch({ type: PRODUCT_STORE_FAIL, payload: error.message });
+                    
+                        return dispatch(deletePost(post.id));
+                    }
+                );
+            },
+            error => {
+                dispatch({ type: POST_CREATE_FAIL, payload: error.message });
+            }
+        );
+    };
+};
+
+export const deletePost = (postId) => {
+    return (dispatch, getState) => {
+        const { userLoginReducer } = getState();
+        const { token } = userLoginReducer.userInfo;
+
+        dispatch({ type: POST_DELETE_REQUEST });
+
+        return deletePostApi(postId, token).then(
+            response => {
+                const { data } = response;
+
+                dispatch({ type: POST_DELETE_SUCCESS, payload: data });
+            },
+            error => {
+                dispatch({ type: POST_DELETE_FAIL, payload: error.message });
+            }
+        );
     };
 };
 
@@ -67,7 +95,6 @@ export const createPostApi = (
         location,
         file
     }, 
-    product_id, 
     token) => {
     let formData = new FormData();
     // TODO: Currently, 'file' is FileList object and I don't know how to handle array of files 
@@ -75,9 +102,9 @@ export const createPostApi = (
     // TODO: from react-bootstrap only accept one file at a time.
     formData.append('title', title);
     formData.append('description', description);
-    formData.append('product_id', product_id);
+    // formData.append('product_id', product_id);
     formData.append('location', location);
-    formData.append('file', file[0]);
+    // formData.append('file', file[0]);
 
     return axios.post(
         'api/post',
@@ -102,3 +129,18 @@ export const fetchPostsApi = (token) => {
         }
     );
 };
+
+export const deletePostApi = (post_id, token) => {
+    const data = { post_id: post_id };
+
+    return axios.delete(
+        '/api/post',
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            data: data
+        }
+    )
+}

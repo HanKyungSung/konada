@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Button, Form, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../redux/actions/postActions';
 
@@ -11,8 +11,11 @@ const PostingScreen = (history) => {
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [file, setFile] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userLoginReducer.userInfo);
+  const postReducer = useSelector((state) => state.postReducer);
+  const { processing } = postReducer;
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -33,14 +36,31 @@ const PostingScreen = (history) => {
       };
 
       dispatch(createPost(data));
-      history.history.push('/');
+
+      // Need help here to redirect the page.
+      if(!processing)
+      {
+        // history.history.push('/');
+      }
     }
 
     setValidated(true);
   };
 
+  useEffect(() => {
+    if(isSubmitted && !processing)
+    {
+      history.history.push('/');
+    }
+  }, dispatch);
+
   return (
     <Container>
+      {processing &&
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      }
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group controlId="posting.controlTitle">
           <Form.Label>Title</Form.Label>

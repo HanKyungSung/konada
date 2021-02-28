@@ -18,12 +18,11 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'product_id', 'status', 'title', 'description', 'location'];
+    protected $fillable = ['user_id', 'status', 'title', 'description', 'location'];
 
-    // Relationships
     public function product()
     {
-        return $this->hasOne('App\Models\Product', 'id', 'product_id');
+        return $this->belongsTo('App\Models\Product', 'id', 'post_id');
     }
 
     public function category()

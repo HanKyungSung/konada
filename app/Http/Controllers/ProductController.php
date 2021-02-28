@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\UploadedFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -38,12 +40,35 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'item_name' => 'required|string',
             'price' => 'required|numeric',
+            'post_id' => 'required|exists:posts,id'
         ]);
 
-        $product = Product::create([
-            'name' => $validatedData['item_name'],
-            'price' => $validatedData['price']
-        ]);
+
+        $product = DB::transaction(function () use ($request, $validatedData){
+
+            $user = \Auth::user();
+
+            $product = Product::create([
+                'name' => $validatedData['item_name'],
+                'price' => $validatedData['price'],
+                'post_id' => $validatedData['post_id']
+            ]);
+
+            $path = $request->file('file')->store('files', ['disk' => 'public_uploads']);
+            $originalFileName = $request->file('file')->getClientOriginalName();
+
+            $uploadedFile = UploadedFile::create([
+                'user_id' => $user->id,
+                'post_id' => $validatedData['post_id'],
+                'product_id' => $product->id,
+                'path' => $path,
+                'original_name' => $originalFileName
+            ]);
+
+            return $product;
+        });
+        
+        $product->uploaded_files;
 
         return $product;
     }

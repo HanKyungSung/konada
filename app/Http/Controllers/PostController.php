@@ -47,7 +47,6 @@ class PostController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
-            'product_id' => 'required|exists:products,id',
             'location' => 'required|string'
         ]);
 
@@ -60,29 +59,49 @@ class PostController extends Controller
                 'title' => $validatedData['title'],
                 'description' => $validatedData['description'],
                 'location' => $validatedData['location'],
-                'product_id' => $validatedData['product_id'],
+                // 'product_id' => $validatedData['product_id'],
                 'user_id' => $user->id
             ]);
 
-            $path = $request->file('file')->store('files', ['disk' => 'public_uploads']);
-            $originalFileName = $request->file('file')->getClientOriginalName();
+            // $path = $request->file('file')->store('files', ['disk' => 'public_uploads']);
+            // $originalFileName = $request->file('file')->getClientOriginalName();
 
-            $uploadedFile = UploadedFile::create([
-                'user_id' => $user->id,
-                'post_id' => $post->id,
-                'product_id' => $validatedData['product_id'],
-                'path' => $path,
-                'original_name' => $originalFileName
-            ]);
+            // $uploadedFile = UploadedFile::create([
+            //     'user_id' => $user->id,
+            //     'post_id' => $post->id,
+            //     'product_id' => $validatedData['product_id'],
+            //     'path' => $path,
+            //     'original_name' => $originalFileName
+            // ]);
 
             return $post;
         });
 
         // eager load
-        $post->product;
-        $post->uploaded_files;
+        // $post->product;
+        // $post->uploaded_files;
 
         return response($post);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, Post $post)
+    {
+        $validatedData = $request->validate([
+            'post_id' => 'required|exists:posts,id'
+        ]);
+
+        $postId = $validatedData['post_id'];
+
+        $post = Post::find($postId);
+        $post->delete();
+
+        return $postId;
     }
 
     //TODO:HENDRIK: Seperate item create post and create product procedure

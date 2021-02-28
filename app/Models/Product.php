@@ -14,5 +14,16 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'price'];
+    protected $fillable = ['name', 'price', 'post_id'];
+
+    // Relationship
+    public function post()
+    {
+        return $this->hasOne('App\Models\Post', 'id');
+    }
+
+    public function uploaded_files()
+    {
+        return $this->hasMany('App\Models\UploadedFile');
+    }
 }

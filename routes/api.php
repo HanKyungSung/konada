@@ -61,4 +61,5 @@ Route::prefix('product')->middleware('auth:api')->group(function() {
 Route::prefix('post')->middleware('auth:api')->group(function() {
     Route::get('/index', [PostController::class, 'index']);
     Route::post('/', [PostController::class, 'store']);
+    Route::delete('/', [PostController::class, 'destroy']);
 });

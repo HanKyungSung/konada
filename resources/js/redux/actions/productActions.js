@@ -36,30 +36,23 @@ export const listProducts = () => async (dispatch) => {
 	}
 };
 
-/**
- * This is using Redux-Thunk and somehow handle error handled by Thunk (ex. have try catch block in there.)
- */
-export const createProduct = (inputData) => {
+export const createProduct = (inputData, post_id) => {
 	return (dispatch, getState) => {
 		dispatch({ type: PRODUCT_CREATE_REQUEST });
 
 		const { userLoginReducer } = getState();
 		const { token } = userLoginReducer.userInfo;
 
-		return createProductApi(inputData, token).then(
-			(response) => {
+		return createProductApi(inputData, post_id, token).then(
+			response => {
 				const { data } = response;
 
 				dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
+
 				return data; // Apparently, we can return data.
 			},
-			(error) => {
-				dispatch({
-					type: PRODUCT_CREATE_FAIL,
-					payload: error.response && error.response.data.message
-						? error.response.data.message
-						: error.message,
-				});
+			error => {
+				dispatch({ type: PRODUCT_CREATE_FAIL, payload: error.message });
 
 				throw error;
 			}
@@ -88,15 +81,26 @@ export const deleteProduct = (productId) => {
 };
 
 // Perhaps we can move below api methods to somewhere else.
-export const createProductApi = ({ item_name, price }, token) => {
+export const createProductApi = ({ 
+	item_name, 
+	price,
+	file
+}, post_id, token) => {
 	const data = {
 		item_name: item_name,
-		price: price
+		price: price,
+		post_id: post_id
 	};
+
+	let formData = new FormData();
+	formData.append('item_name', item_name);
+	formData.append('price', price);
+	formData.append('post_id', post_id);
+	formData.append('file', file[0]);
 
 	return axios.post(
 		'/api/product',
-		data,
+		formData,
 		{
 			headers: {
 				'Content-Type': 'application/json',
