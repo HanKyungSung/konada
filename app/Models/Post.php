@@ -23,12 +23,17 @@ class Post extends Model
     // Relationships
     public function product()
     {
-        return $this->hasOne('App\Models\Product', 'id', 'product_id');
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
     }
 
     public function bids()
@@ -39,5 +44,5 @@ class Post extends Model
     public function uploaded_files()
     {
         return $this->hasMany('App\Models\UploadedFile');
-    }
+    }   
 }
