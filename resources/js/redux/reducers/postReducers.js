@@ -5,14 +5,14 @@ import {
     POST_INDEX_SUCCESS,
     POST_INDEX_FAIL,
     POST_DELETE_SUCCESS,
+    POST_DELETE_FAIL,
     PRODUCT_STORE_REQUEST,
     PRODUCT_STORE_SUCCESS,
     PRODUCT_STORE_FAIL
 } from '../constants/postConstants';
 
 const initState = {
-    loading: true,
-    processing: false,
+    loading: false,
     posts: [],
     error: null
 };
@@ -22,36 +22,33 @@ export const postReducer = (state = initState, action) => {
 
     switch (action.type) {
         case POST_CREATE_REQUEST: {
-            return { ...state, processing: true };
+            return { ...state, loading: true };
         }
 
         case POST_CREATE_SUCCESS: {
-            return { ...state, posts: [ payload, ...state.posts ] };
+            return { ...state, posts: [payload, ...state.posts] };
         }
 
         case POST_CREATE_FAIL: {
-            return { ...state, error: payload };
+            return { ...state, loading: false, error: payload };
         };
 
         case PRODUCT_STORE_SUCCESS: {
             const { product } = payload;
             const newPosts = state.posts.map(post => {
-                if(post.id == product.post_id)
-                {
+                if (post.id == product.post_id) {
                     post.product = product;
                     post.uploaded_files = product.uploaded_files;
                 }
 
                 return post;
             });
-            
-            return { ...state, processing: false, posts: newPosts };
+
+            return { ...state, loading: false, posts: newPosts, error: null };
         };
 
         case PRODUCT_STORE_FAIL: {
-            const { error } = action;
-
-            return { ...state, processing: false, error: error };
+            return { ...state, loading: false, error: payload };
         };
 
         case POST_DELETE_SUCCESS: {
@@ -59,11 +56,15 @@ export const postReducer = (state = initState, action) => {
                 return post.id != payload;
             });
 
-            return { ...state, processing: false, posts: newPosts };
+            return { ...state, loading: false, posts: newPosts };
+        }
+
+        case POST_DELETE_FAIL: {
+            return { ...state, loading: false, error: payload };
         }
 
         case POST_INDEX_SUCCESS: {
-            return { ...state, loading: false, posts: [ ...payload ] };
+            return { ...state, loading: false, posts: [...payload] };
         }
 
         case POST_INDEX_FAIL: {
@@ -74,4 +75,3 @@ export const postReducer = (state = initState, action) => {
             return state;
     }
 };
-  
