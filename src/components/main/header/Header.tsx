@@ -2,6 +2,7 @@ import "./Header.css";
 import { Input, Switch, useMantineTheme, rem } from "@mantine/core";
 import { IconSun, IconMoonStars, IconSearch } from "@tabler/icons-react";
 import companylogo from "../../../assets/konada-logo.png";
+import { Link } from "react-router-dom";
 const Header = () => {
   const theme = useMantineTheme();
 
@@ -24,13 +25,25 @@ const Header = () => {
   return (
     <div>
       <div className="header">
-        <img className="companyLogo" src={companylogo} alt="company logo" />
+        <Link to="/">
+          <img className="companyLogo" src={companylogo} alt="company logo" />
+        </Link>
         <div className="headerTitle">
-          <span>Q&A</span>
-          <span>Knowledge</span>
-          <span>Community</span>
-          <span>Event</span>
-          <span>Announcement</span>
+          <Link to="/question">
+            <span className="headerTextLink">Q&A</span>
+          </Link>
+          <Link to="/knowledge">
+            <span className="headerTextLink">Knowledge</span>
+          </Link>
+          <Link to="/community">
+            <span className="headerTextLink">Community</span>
+          </Link>
+          <Link to="/event">
+            <span className="headerTextLink">Event</span>
+          </Link>
+          <Link to="/notice/info">
+            <span className="headerTextLink">Announcement</span>
+          </Link>
         </div>
         <Input
           ml="md"

@@ -1,0 +1,174 @@
+.subBodyContainer {
+   width: 840px;
+}
+
+.subBodyPostTitle {
+    width: 840px;
+    height: 5rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
+}
+
+.subBodyPostNoticeContainer > :first-child {
+    border-top: 1px solid grey;
+}
+
+.subBodyPostNotice {
+    background-color: rgb(218, 238, 245);
+    border-bottom: 1px solid grey;
+    padding: 10px;
+}
+
+.subBodyPostTitle > h3 {
+    margin-left: 20px;
+}
+
+.subBodyPostTitle > span {
+    margin-top: -24px;
+    margin-left: 20px;
+}
+
+.subBodySortingRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.subBodySortingRow > div > span {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    cursor: pointer;
+}
+
+.subBodySortingRow > div > span :hover {
+    color:#00BFFF;
+}
+
+.subBodyRefresh {
+    margin-right: 130px;
+}
+
+.questionButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 96px;
+    height: 36px;
+    background-color: #00BFFF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.subBodySearchRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.subBodyPost {
+    display: flex;
+    margin-top: 10px;
+    padding: 10px;
+    border-bottom: 1px solid grey;
+}
+
+.subBodyPostComment {
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.subBodyPostContent {
+    width: 100%;
+}
+
+.subBodyPaiginationTop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subBodyArrowLeft {
+    margin-left: 1vw;
+    margin-right: 0.5vw;
+}
+
+.subBodyPostTopIcons {
+    display: flex;
+}
+
+.postSubBodyContent {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.postSubBodyBottomRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.postSubBodyNoticeButton {
+    background-color: white;
+    color: #00BFFF;
+    border: 0.5px solid grey;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.postSubBodyBottomRow > div > span {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.subBodyPaiginationBottom {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 100px;
+    margin-top: 10px;
+}
+
+.subBodyPaiginationLeft,
+.subBodyPaiginationRight {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.subBodyPaiginationLeft > span {
+    color:lightgrey;
+    margin-left: 5px;
+}
+
+.subBodyPaiginationRight > span {
+    margin-right: 5px;
+}
+
+.subBodyPaiginationMiddle {
+    width: 300px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.subBodyPaiginationMiddle :first-child {
+    border-top: 1px solid lightblue;
+    color: lightblue;
+}

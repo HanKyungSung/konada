@@ -1,6 +1,7 @@
 {
+    "bodyBannerURL": "https://assets-static.invideo.io/images/large/image_22_16ac0715c8.png",
+    "q&aBackgroundURL":"https://as2.ftcdn.net/v2/jpg/01/04/64/47/1000_F_104644798_PNzWT8yyjt9R13X3wiihk4HUsVYp6RZM.jpg",
     "body":{
-        "bodyBannerURL": "https://assets-static.invideo.io/images/large/image_22_16ac0715c8.png",
         "q&a":[
             {
                 "profilePictureURL": "https://cdn-icons-png.flaticon.com/512/21/21104.png",
@@ -48,6 +49,7 @@
                 "postTitle":"This is only way to use Java version over 17 when I want to use Sprint boot."
             }
     ],
+
     "community":[
             {
                 "profilePictureURL": "https://cdn-icons-png.flaticon.com/512/21/21104.png",
@@ -188,7 +190,8 @@
                 "comments":0,
                 "postTitle":"This is only way to use Java version over 17 when I want to use Sprint boot."
             }
-    ],"knowledge":[
+    ],
+    "knowledge":[
             {
                 "profilePictureURL": "https://cdn-icons-png.flaticon.com/512/21/21104.png",
                 "userId":"test21",
@@ -234,7 +237,8 @@
                 "comments":5,
                 "postTitle":"SW/AI news"
             }
-    ],"notice":[
+    ],
+   "notice":[
             {
                 "profilePictureURL": "https://cdn-icons-png.flaticon.com/512/21/21104.png",
                 "userId":"test26",
@@ -280,40 +284,37 @@
                 "comments":0,
                 "postTitle":"Talent Beta Open event"
             }
-    ],
-    "event":{
-        "eventTheme":"Legal counselling with Konada",
-        "eventList":[
-            {
-                "eventTitle": "The company sue me when the project is finished.",
-                "eventImage": "https://cdn.pixabay.com/photo/2024/02/12/12/33/snow-8568544_640.jpg" ,
-                "createdTime":"2023-12-31T09:00:00.594Z",
-                "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
-                "userId":"test1"
-            },
-            {
-                "eventTitle": "The company sue me when the project is finished.",
-                "eventImage": "https://cdn.pixabay.com/photo/2024/02/12/12/33/snow-8568544_640.jpg" ,
-                "createdTime":"2023-12-31T09:00:00.594Z",
-                "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
-                "userId":"test2"
-            },
-
-            {
-                "eventTitle": "The company sue me when the project is finished.",
-                "eventImage": "https://cdn.pixabay.com/photo/2024/02/12/12/33/snow-8568544_640.jpg" ,
-                "createdTime":"2023-12-31T09:00:00.594Z",
-                "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
-                "userId":"test3"
-            }
-        ]
-
-    }
+    ]
 },
 
-"subBody":[
+"sideBar":{
+     "TopWriters":[{
+        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+        "userId":"test1",
+        "rankingPoint":228
+    },{
+        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+        "userId":"test2",
+        "rankingPoint":188
+    },{
+        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+        "userId":"test3",
+        "rankingPoint":98
+    },{
+        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+        "userId":"test4",
+        "rankingPoint":80
+    },{
+        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+        "userId":"test5",
+        "rankingPoint":55
+    }]
+},
+
+
+"subBody":
     {
-        "q&a":[
+        "q&a":
             {
                 "notice":[
                     {
@@ -325,7 +326,8 @@
                         "views":1300,
                         "thumbsUp":0,
                         "comments":0,
-                        "noticeTitle":"new open sections"
+                        "noticeTitle":"new open sections",
+                        "createdTime": "2023-12-31T09:00:00.594Z"
                     },
                     {
                         "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
@@ -336,47 +338,50 @@
                         "views":1300,
                         "thumbsUp":0,
                         "comments":0,
-                        "noticeTitle":"How to get a lot of comments?"
+                        "noticeTitle":"How to get a lot of comments?",
+                        "createdTime": "2024-02-25T08:00:00.594Z"
                     }
                 ]
                 ,"posts":[{
                         "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
                         "userId":"test3",
                         "boltPoint":166,
-                        "tagTitle":"technich",
+                        "tagTitle":"technique",
                         "hashTag":["#spring","#springframework","#restapi"],
                         "views":130,
                         "thumbsUp":0,
                         "comments":2,
-                        "noticeTitle":"How to use REST API?",
-                        "postContent":"Hi, I am a junior developer. I need some help how to use REST API"
+                        "postTitle":"How to use REST API?",
+                        "postContent":"Hi, I am a junior developer. I need some help how to use REST API",
+                        "createdTime": "2024-03-02T12:00:00.594Z"
             },{
                  "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
                         "userId":"test4",
                         "boltPoint":166,
-                        "tagTitle":"technich",
+                        "tagTitle":"technique",
                         "hashTag":["#kubernetes","#Kafka","#restapi"],
                         "views":130,
                         "thumbsUp":0,
                         "comments":2,
-                        "noticeTitle":"Error: Timeout was reached",
-                        "postContent":"When I send request to a EXTERNAL-IP gateway, Error: Timeout was reached occured."
+                        "postTitle":"Error: Timeout was reached",
+                        "postContent":"When I send request to a EXTERNAL-IP gateway, Error: Timeout was reached occured.",
+                        "createdTime": "2024-02-25T15:00:00.594Z"
             },{
                  "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
                         "userId":"test5",
                         "boltPoint":166,
-                        "tagTitle":"technich",
+                        "tagTitle":"technique",
                         "hashTag":["#jar","#ubuntu","#springboot"],
                         "views":130,
                         "thumbsUp":0,
                         "comments":2,
-                        "noticeTitle":"My project is not executed with ubuntu",
-                        "postContent":"I execute my spring boots project with adding jar on ubuntu."
+                        "postTitle":"My project is not executed with ubuntu",
+                        "postContent":"I execute my spring boots project with adding jar on ubuntu.",
+                        "createdTime": "2024-02-25T15:00:00.594Z"
             }
         ]
-            }
-        ],
-        "community":[
+            },
+        "community":
             {
                 "notice":[
                     {
@@ -388,7 +393,8 @@
                         "views":1300,
                         "thumbsUp":5,
                         "comments":10,
-                        "noticeTitle":"new open Talent"
+                        "noticeTitle":"new open Talent",
+                        "createdTime": "2024-01-22T18:00:00.594Z"
                     }
                 ]
                 ,"posts":[{
@@ -400,7 +406,9 @@
                         "views":130,
                         "thumbsUp":0,
                         "comments":2,
-                        "postTitle":"I want to give up my job"
+                        "postTitle":"I want to give up my job",
+                        "postContent":"",
+                        "createdTime": "2024-03-04T15:00:00.594Z"
             },{
                         "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
                         "userId":"test8",
@@ -410,7 +418,9 @@
                         "views":130,
                         "thumbsUp":0,
                         "comments":2,
-                        "postTitle":"I want to find UX/UI developer"
+                        "postTitle":"I want to find UX/UI developer",
+                        "postContent":"",
+                        "createdTime": "2024-01-22T15:00:00.594Z"
             },{
                         "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
                         "userId":"test9",
@@ -420,11 +430,12 @@
                         "views":130,
                         "thumbsUp":0,
                         "comments":2,
-                        "postTitle":"Is it hard to become a developer over 30 years?"
+                        "postTitle":"Is it hard to become a developer over 30 years?",
+                        "postContent":"",
+                        "createdTime": "2024-02-21T15:00:00.594Z"
             }]
-            }
-        ],
-        "knowledge":[
+            },
+        "knowledge":
             {
                 "notice":[
                     {
@@ -436,7 +447,8 @@
                         "views":1300,
                         "thumbsUp":0,
                         "comments":0,
-                        "noticeTitle":"new open sections"
+                        "noticeTitle":"new open sections",
+                        "createdTime": "2024-01-25T15:00:00.594Z"
                     }
                 ]
                 ,"posts":[{
@@ -448,7 +460,9 @@
                         "views":990,
                         "thumbsUp":5,
                         "comments":2,
-                        "noticeTitle":"SW/AI news"
+                        "postTitle":"SW/AI news",
+                        "postContent":"",
+                        "createdTime": "2024-01-22T15:00:00.594Z"
             },
         {
                         "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
@@ -459,7 +473,9 @@
                         "views":130,
                         "thumbsUp":33,
                         "comments":2,
-                        "noticeTitle":"How to connect to supabase"
+                        "postTitle":"How to connect to supabase",
+                        "postContent":"",
+                        "createdTime": "2024-01-18T19:00:00.594Z"
             },{
                         "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
                         "userId":"test12",
@@ -469,11 +485,12 @@
                         "views":130,
                         "thumbsUp":0,
                         "comments":2,
-                        "noticeTitle":"groq ai"
+                        "postTitle":"groq ai",
+                        "postContent":"",
+                        "createdTime": "2024-01-12T15:00:00.594Z"
             }]
-            }
-        ],
-        "notice":[
+            },
+        "notice":
             {
                 "notice":[
                     {
@@ -485,7 +502,8 @@
                         "views":1300,
                         "thumbsUp":0,
                         "comments":0,
-                        "noticeTitle":"new open sections"
+                        "noticeTitle":"new open sections",
+                        "createdTime": "2024-02-25T15:00:00.594Z"
                     },
                     {
                         "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
@@ -496,7 +514,8 @@
                         "views":1300,
                         "thumbsUp":0,
                         "comments":0,
-                        "noticeTitle":"How to get a lot of comments?"
+                        "noticeTitle":"How to get a lot of comments?",
+                        "createdTime": "2024-02-22T15:00:00.594Z"
                     }
                 ]
                 ,"posts":[{
@@ -508,7 +527,9 @@
                         "views":130,
                         "thumbsUp":0,
                         "comments":2,
-                        "noticeTitle":"Notice for downtime"
+                        "postTitle":"Notice for downtime",
+                        "postContent":"",
+                        "createdTime": "2024-02-21T15:00:00.594Z"
             },{
                         "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
                         "userId":"test14",
@@ -518,7 +539,9 @@
                         "views":1300,
                         "thumbsUp":0,
                         "comments":2,
-                        "noticeTitle":"Goods survey"
+                        "postTitle":"Goods survey",
+                        "postContent":"",
+                        "createdTime": "2024-02-20T15:00:00.594Z"
             },{
                         "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
                         "userId":"test15",
@@ -528,10 +551,76 @@
                         "views":130,
                         "thumbsUp":0,
                         "comments":2,
-                        "noticeTitle":"Operational rules"
+                        "postTitle":"Operational rules",
+                        "postContent":"",
+                        "createdTime": "2024-02-18T15:00:00.594Z"
+            }]
+            },
+            "evet":
+            {
+                "notice":[
+                    {
+                        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+                        "userId":"test1",
+                        "boltPoint":166,
+                        "tagTitle":"notice",
+                        "hashTag":["#notice","#grandopen","#jobs","#konada"],
+                        "views":1300,
+                        "thumbsUp":0,
+                        "comments":0,
+                        "noticeTitle":"new open sections",
+                        "createdTime": "2024-02-25T15:00:00.594Z"
+                    },
+                    {
+                        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+                        "userId":"test2",
+                        "boltPoint":1660,
+                        "tagTitle":"notice",
+                        "hashTag":["#own","#q&a","#management","#konada"],
+                        "views":1300,
+                        "thumbsUp":0,
+                        "comments":0,
+                        "noticeTitle":"How to get a lot of comments?",
+                        "createdTime": "2024-02-22T15:00:00.594Z"
+                    }
+                ]
+                ,"posts":[{
+                        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+                        "userId":"test16",
+                        "boltPoint":166,
+                        "tagTitle":"notice",
+                        "hashTag":["#jobs","#konada"],
+                        "views":130,
+                        "thumbsUp":0,
+                        "comments":2,
+                        "postTitle":"Notice for downtime",
+                        "postContent":"",
+                        "createdTime": "2024-02-21T15:00:00.594Z"
+            },{
+                        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+                        "userId":"test17",
+                        "boltPoint":16,
+                        "tagTitle":"notice",
+                        "hashTag":["#survey","#konada"],
+                        "views":1300,
+                        "thumbsUp":0,
+                        "comments":2,
+                        "postTitle":"Goods survey",
+                        "postContent":"",
+                        "createdTime": "2024-02-20T15:00:00.594Z"
+            },{
+                        "profilePictureURL":"https://cdn-icons-png.flaticon.com/512/21/21104.png",
+                        "userId":"test18",
+                        "boltPoint":1660,
+                        "tagTitle":"notice",
+                        "hashTag":["#jobs","#notice","#konada"],
+                        "views":130,
+                        "thumbsUp":0,
+                        "comments":2,
+                        "postTitle":"Operational rules",
+                        "postContent":"",
+                        "createdTime": "2024-02-18T15:00:00.594Z"
             }]
             }
-        ]
     }
-]
 }

@@ -15,7 +15,16 @@
     font-size: 16px;
 }
 
-.headerTitle > span {
+.headerTitle > a {
+    text-decoration: none;
+    color: black;
+}
+
+.headerTitle > a:hover {
+    color: #00BFFF;
+}
+
+.headerTextLink {
     padding: 10px;
     margin-left: 0.5vw;
     margin-right: 0.8vw;
@@ -31,7 +40,7 @@
     margin-right: 0.5vw;
 }
 
-.logIn, .signUp {
+.logIn , .signUp {
     width: 85px;
     height: 35px;
     border-radius: 15px;
@@ -48,5 +57,5 @@
 .signUp {
     background-color: #00BFFF;
     color: white;
-    border-color: #00BFFF;
+    border-color:#00BFFF;
 }

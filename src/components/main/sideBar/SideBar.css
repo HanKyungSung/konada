@@ -1,0 +1,33 @@
+.advertiseMentImage {
+    width: 180px;
+    height: 380px;
+    margin-bottom: 10px;
+}
+
+.rightSideBar {
+    display: flex;
+    flex-direction: column;
+    margin-right: 300px;
+    margin-top: 50px;
+}
+
+.rightSideBar > img {
+    margin-bottom: 30px;
+}
+
+.leftSideBar {
+    width: 180px;
+    margin-bottom: 30px;
+    margin-left: 300px;
+    margin-top: 50px;
+}
+.rankingWriter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.rankingWriter > div {
+    display: flex;
+}

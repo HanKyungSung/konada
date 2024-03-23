@@ -1,0 +1,107 @@
+.body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.bodyBanner {
+    height: 140px;
+    width: 840px;
+}
+
+.post {
+    width: 400px;
+}
+
+.postContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 840px;
+    margin-top: 100px;
+}
+
+.postContainer > div {
+    padding: 10px;
+}
+
+.postTitle {
+    width: 400px;
+    height: 64px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.postTitle > span {
+    margin-left: 1vw;
+    font-weight: bold;
+    font-size: 1.125rem;
+}
+
+.postIcons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.postIconsLeft {
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+}
+
+.postIconsLeft > span {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 17px;
+}
+
+.postIconsRight {
+    display: flex;
+    margin-right: 5px;
+}
+
+.postIconsRight > span {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+
+.postContent {
+    margin-left: 0.5vw;
+    margin-top: 0.5vw;
+    font-weight: bold;
+}
+.userProfilePictureBackground {
+    width: 23px;
+    height: 26px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.userProfilePicture {
+    width: 20px;
+}
+
+.event {
+    width: 840px;
+}
+
+.event > span {
+    font-size: 28px;
+    margin-left: 1vw;
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.eventImage {
+    width: 215px;
+    height: 115px;
+    padding: 10px;
+}
